@@ -7,6 +7,7 @@ import LoginPage from './pages/Auth/Login';
 import SignupPage from './pages/Auth/Signup';
 import VerificationPage from './pages/Auth/Verify';
 import ForgotPasswordPage from './pages/Auth/Forgot';
+import ResetPasswordPage from './pages/Auth/Reset';
 import Venues from './pages/Venues';
 import VenueDetail from './pages/VenueDetail';
 
@@ -28,6 +29,7 @@ function App() {
           <Route path='/signup' element={<SignupPage />} />
           <Route path='/verify' element={<VerificationPage />} />
           <Route path='/forgot' element={<ForgotPasswordPage />} />
+          <Route path='/reset/:token' element={<ResetPasswordPage />} />
           <Route path='/venues' element={<Venues/>}/>
           <Route path='/venues/:id' element={<VenueDetail />} />
           

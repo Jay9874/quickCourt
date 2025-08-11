@@ -11,17 +11,18 @@ export default function ProtectedRoute() {
         return <Loading size={18} className='my-2 mx-auto' />;
     }
 
-    const authPages = ['/login', '/signup', '/verify', '/forgot'];
+    const authPages = ['/login', '/signup', '/verify', '/forgot', '/reset'];
+    const isAuthPage = authPages.some(path => location.pathname.startsWith(path));
 
-    if (isAuthenticated && authPages.includes(location.pathname)) {
+    if (isAuthenticated && isAuthPage) {
         return <Navigate to='/' replace />;
     }
 
-    if (!isAuthenticated && !authPages.includes(location.pathname)) {
+    if (!isAuthenticated && !isAuthPage) {
         return <Navigate to='/login' replace />;
     }
 
-    if (!isAuthenticated && authPages.includes(location.pathname)) {
+    if (!isAuthenticated && isAuthPage) {
         return <Outlet />;
     }
 
@@ -30,5 +31,5 @@ export default function ProtectedRoute() {
             <Navbar />
             <Outlet />
         </>
-    );
+    )
 }
