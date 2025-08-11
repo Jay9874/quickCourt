@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'sonner';
+import citiesData from '../../data/citiesData.json'
 
 export default function AddVenue() {
     const navigate = useNavigate();
@@ -9,7 +10,8 @@ export default function AddVenue() {
     const [images, setImages] = useState([]);
     const [formData, setFormData] = useState({
         name: '',
-        location: '',
+        city: 'Ahmedabad',
+        address: '',
         description: '',
         sports: [],
         amenities: []
@@ -86,11 +88,26 @@ export default function AddVenue() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!formData.name.trim() || !formData.location.trim() || !formData.description.trim()) {
-            return toast.error('Please fill all required fields');
+        if (!formData.name.trim()) {
+            return toast.error('Name is required');
+        }
+        if (!formData.city || !citiesData.includes(formData.city)) {
+            return toast.error('Please select a valid city');
+        }
+        if (!formData.address.trim()) {
+            return toast.error('Address is required');
+        }
+        if (!formData.description.trim()) {
+            return toast.error('Description is required');
         }
         if (images.length === 0) {
             return toast.error('Please upload at least one image');
+        }
+        if (formData.sports.length === 0) {
+            return toast.error('Please add at least one sport');
+        }
+        if (formData.amenities.length === 0) {
+            return toast.error('Please add at least one amenity');
         }
 
         try {
@@ -99,7 +116,8 @@ export default function AddVenue() {
             const data = new FormData();
 
             data.append('name', formData.name);
-            data.append('location', formData.location);
+            data.append('city', formData.city);
+            data.append('address', formData.address);
             data.append('description', formData.description);
             formData.sports.forEach(sport => data.append('sports', sport));
             formData.amenities.forEach(amenity => data.append('amenities', amenity));
@@ -117,7 +135,7 @@ export default function AddVenue() {
             );
 
             toast.success('Venue added successfully!');
-            navigate('');
+            navigate('/');
         }
         catch (error) {
             toast.error(error.response?.data?.message || 'Failed to add venue');
@@ -175,12 +193,27 @@ export default function AddVenue() {
                     </div>
 
                     <div>
-                        <label className='block mb-1 font-medium'>Location</label>
-                        <input
-                            type='text'
-                            name='location'
-                            value={formData.location}
+                        <label className='block mb-1 font-medium'>City</label>
+                        <select
+                            name='city'
+                            value={formData.city}
                             onChange={handleChange}
+                            className='w-full px-3 py-2.5 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
+                        >
+                            <option disabled>Select Venue City</option>
+                            {citiesData.map(item => (
+                                <option key={item} value={item}>{item}</option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label className='block mb-1 font-medium'>Address</label>
+                        <textarea
+                            name='address'
+                            value={formData.address}
+                            onChange={handleChange}
+                            rows='2'
                             className='w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
                         />
                     </div>

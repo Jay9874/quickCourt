@@ -3,18 +3,19 @@ const mongoose = require('mongoose');
 const venueSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true,
-        trim: true
+        required: true
     },
-    location: {
+    city: {
         type: String,
-        required: true,
-        trim: true
+        required: true
+    },
+    address: {
+        type: String,
+        required: true
     },
     description: {
         type: String,
-        required: true,
-        trim: true
+        required: true
     },
     sports: {
         type: [String],

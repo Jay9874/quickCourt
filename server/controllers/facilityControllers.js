@@ -9,14 +9,28 @@ const imagekit = new ImageKit({
 
 exports.createVenue = async (req, res) => {
     try {
-        const { name, location, description, sports, amenities } = req.body;
+        const { name, city, address, description, sports, amenities } = req.body;
 
-        if (!name || !location || !description) {
-            return res.status(400).json({ message: 'Name, location, and description are required' });
+        if (name) {
+            return res.status(400).json({ message: 'Name is required' });
         }
-
-        if (!req.files || req.files.length === 0) {
-            return res.status(400).json({ message: 'At least one image is required' });
+        if (city || !citiesData.includes(city)) {
+            return res.status(400).json({ message: 'Valid City is required' });
+        }
+        if (address) {
+            return res.status(400).json({ message: 'Address is required' });
+        }
+        if (description) {
+            return res.status(400).json({ message: 'Description is required' });
+        }
+        if (images.length === 0) {
+            return res.status(400).json({ message: 'Please upload at least one image' });
+        }
+        if (sports.length === 0) {
+            return res.status(400).json({ message: 'Please add at least one sport' });
+        }
+        if (amenities.length === 0) {
+            return res.status(400).json({ message: 'Please add at least one amenity' });
         }
 
         const uploadedImages = [];
@@ -45,7 +59,7 @@ exports.createVenue = async (req, res) => {
         await newVenue.save();
 
         res.status(201).json({ message: 'Venue created successfully' });
-    } 
+    }
     catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
