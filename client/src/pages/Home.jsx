@@ -2,6 +2,7 @@ import React from 'react'
 import VenueCard from '../components/VenueCard'
 import Footer from '../components/Footer'
 import { Link, NavLink } from 'react-router-dom'
+import { FaChevronRight, FaChevronLeft } from 'react-icons/fa'
 
 export default function Home () {
   // Mock data - replace with actual API call
@@ -74,6 +75,39 @@ export default function Home () {
     }
   ]
 
+  const popularSports = [
+    {
+      id: 1,
+      name: 'Badminton',
+      imageUrl: 'https://picsum.photos/seed/1/200/150'
+    },
+    {
+      id: 2,
+      name: 'Football',
+      imageUrl: 'https://picsum.photos/seed/2/200/150'
+    },
+    {
+      id: 3,
+      name: 'Cricket',
+      imageUrl: 'https://picsum.photos/seed/3/200/150'
+    },
+    {
+      id: 4,
+      name: 'Swimming',
+      imageUrl: 'https://picsum.photos/seed/4/200/150'
+    },
+    {
+      id: 5,
+      name: 'Tennis',
+      imageUrl: 'https://picsum.photos/seed/5/200/150'
+    },
+    {
+      id: 6,
+      name: 'Table Tennis',
+      imageUrl: 'https://picsum.photos/seed/6/200/150'
+    }
+  ]
+
   return (
     <div>
       <div className='flex min-h-[50vh]'>
@@ -139,7 +173,9 @@ export default function Home () {
         <div className='flex justify-between p-2'>
           <p>Book Venues</p>
           <p>
-            <Link className="underline" to={'/venue'}>See all Venues {'>'}</Link>
+            <Link className='underline' to={'/venues'}>
+              See all Venues {'>'}
+            </Link>
           </p>
         </div>
         <div className='flex overflow-scroll gap-24 p-4'>
@@ -147,7 +183,42 @@ export default function Home () {
             <VenueCard key={venue.id} venue={venue} />
           ))}
         </div>
+        {/* the carousel buttons */}
+        <div className='flex justify-center items-center p-4 gap-2'>
+          <button className='border border-gray-300 p-4 rounded-full'>
+            <FaChevronLeft />
+          </button>
+          <button className='border border-gray-300 p-4 rounded-full'>
+            <FaChevronRight />
+          </button>
+        </div>
       </div>
+
+      {/* the sports available */}
+      <section className='py-12'>
+        <div className='container mx-auto px-4'>
+          <h2 className='text-xl font-bold mb-8'>Popular Sports</h2>
+          <div className='flex space-x-6 overflow-x-auto'>
+            {popularSports.map(sport => (
+              <div
+                key={sport.id}
+                className='flex-none w-56 bg-gray-800 rounded-lg overflow-hidden shadow-lg transform transition-transform duration-300 hover:scale-105'
+              >
+                <img
+                  src={sport.imageUrl}
+                  alt={sport.name}
+                  className='w-full h-40 object-cover'
+                />
+                <div className='p-4'>
+                  <h3 className='text-xl font-semibold text-white'>
+                    {sport.name}
+                  </h3>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <div className='mt-4'>
         <Footer />
