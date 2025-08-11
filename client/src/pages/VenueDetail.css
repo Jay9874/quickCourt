@@ -1,0 +1,602 @@
+.venue-detail-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Header Section */
+.venue-header {
+  margin-bottom: 40px;
+  padding-bottom: 30px;
+  border-bottom: 2px solid #ecf0f1;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  color: #3498db;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 10px 0;
+  margin-bottom: 20px;
+  transition: color 0.3s ease;
+}
+
+.back-btn:hover {
+  color: #2980b9;
+}
+
+.venue-header h1 {
+  font-size: 2.8rem;
+  color: #2c3e50;
+  margin: 0 0 20px 0;
+  font-weight: 700;
+}
+
+.venue-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.stars {
+  display: flex;
+  gap: 3px;
+}
+
+.star {
+  font-size: 1.3rem;
+  color: #bdc3c7;
+}
+
+.star.filled {
+  color: #f39c12;
+}
+
+.star.half {
+  color: #f39c12;
+  opacity: 0.7;
+}
+
+.rating-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.review-count {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #7f8c8d;
+  font-size: 1rem;
+}
+
+.location-icon {
+  font-size: 1.2rem;
+}
+
+/* Photo Gallery */
+.photo-gallery {
+  margin-bottom: 40px;
+}
+
+.main-photo {
+  position: relative;
+  height: 400px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.main-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.view-all-photos {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.view-all-photos:hover {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.photo-thumbnails {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
+
+.photo-thumbnails img {
+  width: 100px;
+  height: 75px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  border: 3px solid transparent;
+}
+
+.photo-thumbnails img:hover {
+  opacity: 0.8;
+}
+
+.photo-thumbnails img.active {
+  border-color: #3498db;
+}
+
+/* Venue Info Grid */
+.venue-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.info-section {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.info-section h2 {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  margin: 0 0 20px 0;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #ecf0f1;
+}
+
+/* Sports Section */
+.sports-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sport-item {
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #3498db;
+}
+
+.sport-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.sport-header h3 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.2rem;
+}
+
+.price {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #27ae60;
+}
+
+.sport-description {
+  color: #7f8c8d;
+  margin: 0 0 15px 0;
+  line-height: 1.5;
+}
+
+.availability {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.availability.available {
+  background: #d5f4e6;
+  color: #27ae60;
+}
+
+.availability.unavailable {
+  background: #fadbd8;
+  color: #e74c3c;
+}
+
+/* Amenities Section */
+.amenities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.amenity-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #2c3e50;
+}
+
+.amenity-icon {
+  color: #27ae60;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+/* About Section */
+.venue-description {
+  color: #2c3e50;
+  line-height: 1.6;
+  margin: 0 0 15px 0;
+  font-size: 1rem;
+}
+
+.venue-about {
+  color: #7f8c8d;
+  line-height: 1.6;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* Opening Hours */
+.opening-hours {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.day-hours {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #ecf0f1;
+}
+
+.day-hours:last-child {
+  border-bottom: none;
+}
+
+.day {
+  font-weight: 600;
+  color: #2c3e50;
+  text-transform: capitalize;
+}
+
+.hours {
+  color: #7f8c8d;
+}
+
+/* Contact Information */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.contact-icon {
+  font-size: 1.2rem;
+}
+
+.contact-item a {
+  color: #3498db;
+  text-decoration: none;
+}
+
+.contact-item a:hover {
+  text-decoration: underline;
+}
+
+/* Reviews Section */
+.reviews-section {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+}
+
+.reviews-section h2 {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin: 0 0 25px 0;
+}
+
+.reviews-summary {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  padding: 25px;
+  background: #f8f9fa;
+  border-radius: 12px;
+}
+
+.overall-rating {
+  text-align: center;
+}
+
+.rating-number {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.rating-stars {
+  margin-bottom: 10px;
+}
+
+.total-reviews {
+  color: #7f8c8d;
+  font-size: 1rem;
+}
+
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.review-item {
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #3498db;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.reviewer-name {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.review-rating {
+  display: flex;
+  gap: 2px;
+}
+
+.review-date {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+}
+
+.review-comment {
+  color: #2c3e50;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Booking Section */
+.booking-section {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.booking-info h3 {
+  font-size: 1.8rem;
+  margin: 0 0 10px 0;
+}
+
+.booking-info p {
+  font-size: 1.1rem;
+  margin: 0 0 25px 0;
+  opacity: 0.9;
+}
+
+.book-now-btn {
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.book-now-btn:hover {
+  background: #229954;
+}
+
+/* Photo Modal */
+.photo-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #7f8c8d;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.close-modal:hover {
+  color: #2c3e50;
+}
+
+.modal-gallery {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.modal-gallery img {
+  max-width: 100%;
+  max-height: 60vh;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.modal-thumbnails {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  overflow-x: auto;
+}
+
+.modal-thumbnails img {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.modal-thumbnails img.active {
+  border-color: #3498db;
+}
+
+/* Loading and Error States */
+.loading, .error {
+  text-align: center;
+  padding: 100px 20px;
+  color: #7f8c8d;
+  font-size: 1.2rem;
+}
+
+.error {
+  color: #e74c3c;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .venue-detail-container {
+    padding: 15px;
+  }
+  
+  .venue-header h1 {
+    font-size: 2.2rem;
+  }
+  
+  .venue-meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .main-photo {
+    height: 300px;
+  }
+  
+  .venue-info-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .info-section {
+    padding: 20px;
+  }
+  
+  .amenities-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .reviews-section {
+    padding: 20px;
+  }
+  
+  .booking-section {
+    padding: 25px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .venue-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .main-photo {
+    height: 250px;
+  }
+  
+  .photo-thumbnails img {
+    width: 80px;
+    height: 60px;
+  }
+  
+  .modal-content {
+    padding: 15px;
+  }
+  
+  .modal-thumbnails img {
+    width: 60px;
+    height: 45px;
+  }
+}

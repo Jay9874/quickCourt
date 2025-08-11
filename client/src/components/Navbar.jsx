@@ -8,7 +8,7 @@ export default function Navbar () {
         <NavLink to=''>QuickCourt</NavLink>
 
         <NavLink
-          to='venue'
+          to='venues'
           className={({ isActive }) =>
             [
               isActive

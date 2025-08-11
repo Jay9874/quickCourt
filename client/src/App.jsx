@@ -6,6 +6,8 @@ import Home from './pages/Home';
 import LoginPage from './pages/Login';
 import SignupPage from './pages/Signup';
 import VerificationPage from './pages/Verify';
+import Venues from './pages/Venues';
+import VenueDetail from './pages/VenueDetail';
 
 function App() {
   const { fetchUser } = useAuthFetch();
@@ -24,6 +26,9 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/verify" element={<VerificationPage />} />
+          <Route path='/venues' element={<Venues/>}/>
+          <Route path='/venues/:id' element={<VenueDetail />} />
+          
         </Route>
         <Route path="*" element={<>Not Found</>} />
       </Routes>
