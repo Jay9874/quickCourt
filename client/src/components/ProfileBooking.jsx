@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export default function ProfileBooking () {
+  const [activeTab, setActiveTab] = useState('all')
   const bookings = [
     {
       _id: '1',
@@ -45,23 +46,43 @@ export default function ProfileBooking () {
     console.log('Write a review for booking with ID:', id)
   }
 
+
   return (
-    <div className='min-h-screen border border-gray-400 p-8 text-white font-sans'>
-      <h2 className='text-3xl font-bold mb-6'>My Bookings</h2>
+    <div className='min-h-screen rounded-md border border-gray-400 p-8 shadow-lg'>
+      {/* <h2 className='text-3xl font-bold mb-6'>My Bookings</h2> */}
+      <div className='inline-flex border border-gray-400 rounded-full p-1'>
+        <button
+          onClick={() => setActiveTab('all')}
+          className={`px-4 py-2 rounded-full transition duration-300 ${
+            activeTab === 'all'
+              ? 'bg-green-950 text-white font-semibold'
+              : ''
+          }`}
+        >
+          All Bookings
+        </button>
+        <button
+          onClick={() => setActiveTab('cancelled')}
+          className={`px-4 py-2 rounded-full transition duration-300 ${
+            activeTab === 'cancelled'
+              ? 'bg-green-950 text-white font-semibold'
+              : ''
+          }`}
+        >
+          Cancelled
+        </button>
+      </div>
 
       {/* Container for Confirmed and other non-cancelled bookings */}
-      <div className='bg-[#111] rounded-2xl border border-[#333] p-5 mb-8'>
+      <div className='mt-4 mb-8'>
         {bookings
           .filter(b => b.status !== 'Cancelled')
           .map(booking => (
             <div
               key={booking._id}
-              className='bg-[#181818] rounded-xl p-5 mb-4 border border-[#444] shadow-lg'
+              className='rounded-xl p-5 mb-4 border border-[#444] shadow-lg'
             >
               <div className='font-semibold text-lg mb-1'>
-                <span role='img' aria-label='court'>
-                  🎾
-                </span>{' '}
                 {booking.venueName} ({booking.sport})
               </div>
               <div className='flex gap-5 text-sm mb-0.5'>
@@ -123,12 +144,9 @@ export default function ProfileBooking () {
           .map(booking => (
             <div
               key={booking._id}
-              className='bg-[#181818] rounded-xl p-5 mb-4 border border-[#333]'
+              className='rounded-xl p-5 mb-4 border border-[#333]'
             >
               <div className='font-semibold text-lg mb-1'>
-                <span role='img' aria-label='court'>
-                  🎾
-                </span>{' '}
                 {booking.venueName} ({booking.sport})
               </div>
               <div className='flex gap-5 text-sm mb-0.5'>
