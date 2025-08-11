@@ -96,7 +96,7 @@ export default function ProfileBooking () {
               <div className='mt-2 flex gap-3 flex-wrap'>
                 {booking.status === 'Confirmed' && booking.canCancel && (
                   <button
-                    className='text-[#f33] bg-transparent border-none cursor-pointer font-mono text-sm'
+                    className='text-[#f33] bg-transparent border-none font-mono text-sm'
                     onClick={() => handleCancelBooking(booking._id)}
                   >
                     [Cancel Booking]
@@ -104,7 +104,7 @@ export default function ProfileBooking () {
                 )}
                 {booking.status === 'Confirmed' && (
                   <button
-                    className='text-[#0f3] bg-transparent border-none cursor-pointer font-mono text-sm'
+                    className='text-[#0f3] bg-transparent border-none font-mono text-sm'
                     onClick={() => handleWriteReview(booking._id)}
                   >
                     [Write Review]

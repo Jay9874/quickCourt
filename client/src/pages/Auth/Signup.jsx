@@ -4,6 +4,27 @@ import axios from 'axios';
 import { toast } from 'sonner';
 import PasswordInput from '../../components/PasswordInput';
 
+const isEmailValid = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return emailRegex.test(email)
+}
+
+const validatePassword = (password) => {
+    return {
+        length: password.length >= 6,
+        lowercase: /[a-z]/.test(password),
+        uppercase: /[A-Z]/.test(password),
+        number: /[0-9]/.test(password),
+        specialChar: /[#@$%&]/.test(password),
+        noSpaces: /^\S*$/.test(password)
+    }
+}
+
+const isPasswordValid = (password) => {
+    const v = validatePassword(password)
+    return Object.values(v).every(Boolean)
+}
+
 export default function SignupPage() {
     const navigate = useNavigate();
 
@@ -39,15 +60,15 @@ export default function SignupPage() {
         const { name, email, password, confirmPassword, role } = formData;
 
         if (!name) return toast.error('Name is required');
-        else if (!email) return toast.error('Email is required');
-        else if (password.length < 6) return toast.error('Minimum password length is 6');
+        else if (!isEmailValid(email)) return toast.error('Please enter a valid email address');
+        else if (!isPasswordValid(password)) {
+            return toast.error('Password does not meet all requirements');
+        }
         else if (!confirmPassword) return toast.error('Confirm Password is required');
-
-        if (password !== confirmPassword) {
+        else if (password !== confirmPassword) {
             return toast.error('Passwords do not match');
         }
-
-        if (role !== 'player' && role !== 'facility') {
+        else if (role !== 'player' && role !== 'facility') {
             return toast.error('Please select your role');
         }
 
@@ -121,7 +142,6 @@ export default function SignupPage() {
                     <div>
                         <label className='block mb-1 font-medium'>Email</label>
                         <input
-                            type='email'
                             name='email'
                             value={formData.email}
                             onChange={handleChange}
@@ -132,6 +152,7 @@ export default function SignupPage() {
                     <PasswordInput
                         value={formData.password}
                         onChange={handleChange}
+                        useValidation={true}
                     />
 
                     <div>
