@@ -1,7 +1,93 @@
 const Venue = require('../models/Venue')
 
+exports.fetchVenuesByParams = async (req, res) => {
+  const {
+    searchTerm = '',
+    selectedSport,
+    selectedPrice,
+    selectedVenueType,
+    selectedRating,
+    city,
+    page = 1,
+    venuesPerPage = 6,
+  } = req.query;
+
+  if (!req.query) {
+    return res.status(400).json({ message: 'Please provide the search parameters' });
+  }
+
+  try {
+    const query = {};
+
+    if (searchTerm) {
+      query.$or = [
+        { name: { $regex: searchTerm, $options: 'i' } },
+        { description: { $regex: searchTerm, $options: 'i' } },
+      ];
+    }
+
+    if (selectedSport) {
+      query.$or = query.$or || [];
+      query.$or.push({ 'courts.sport': selectedSport });
+    }
+
+    if (selectedPrice) {
+      let priceFilter = {};
+      if (selectedPrice === 'low') {
+        priceFilter = { $gte: 0, $lte: 1500 };
+      }
+      else if (selectedPrice === 'medium') {
+        priceFilter = { $gte: 1501, $lte: 2500 };
+      }
+      else if (selectedPrice === 'high') {
+        priceFilter = { $gte: 2501 };
+      }
+
+      query.courts = {
+        $elemMatch: {
+          price: priceFilter,
+        },
+      };
+    }
+
+    if (city) {
+      query.city = { $regex: city, $options: 'i' };
+    }
+
+    // if (selectedVenueType) {
+    //   query.venueType = selectedVenueType;
+    // }
+
+    // if (selectedRating) {
+    //   query.rating = { $gte: Number(selectedRating) };
+    // }
+
+    const pageNum = parseInt(page, 10) || 1;
+    const limit = parseInt(venuesPerPage, 10) || 6;
+    const skip = (pageNum - 1) * limit;
+
+    const totalCount = await Venue.countDocuments(query);
+
+    const venues = await Venue.find(query)
+      .skip(skip)
+      .limit(limit)
+      .sort({ createdAt: -1 });
+
+    const totalPages = Math.ceil(totalCount / limit);
+
+    return res.status(200).json({
+      venues,
+      totalPages,
+      currentPage: pageNum
+    });
+  }
+  catch (err) {
+    return res.status(500).json({ error: 'Something went wrong' });
+  }
+};
+
 exports.fetchVenuesByCity = async (req, res) => {
-  const { city} = req.query
+  const { city } = req.query
 
   if (!city) {
     return res.status(400).json({ message: 'City is required' })
@@ -12,7 +98,6 @@ exports.fetchVenuesByCity = async (req, res) => {
       city: { $regex: new RegExp(`^${city}`, 'i') }
     })
 
-    // 4. (Optional) Get total count for pagination UI
     const totalCount = await Venue.countDocuments()
 
     if (!venues || venues.length === 0) {
@@ -25,87 +110,8 @@ exports.fetchVenuesByCity = async (req, res) => {
       venues: venues,
       totalPages: totalCount
     })
-  } catch (err) {
-    return res.status(500).json({ error: 'something went wrong' })
   }
-}
-
-exports.fetchVenuesByParams = async (req, res) => {
-  const {
-    searchTerm,
-    selectedSport,
-    selectedPrice,
-    selectedVenueType,
-    selectedRating,
-    page = 1,
-    venuesPerPage = 6
-  } = req.query
-
-  if (!req.query) {
-    return res
-      .status(400)
-      .json({ message: 'Please provide the search parameters' })
-  }
-
-  try {
-    // 1. Build the filter object
-    const filter = {}
-
-    // Text search: 'searchTerm'
-    if (searchTerm) {
-      // This creates a regex to find the searchTerm in the venue name, case-insensitive
-      filter.name = { $regex: searchTerm, $options: 'i' }
-    }
-
-    // Exact match filters
-    if (selectedSport) {
-      filter.sport = selectedSport
-    }
-    if (selectedVenueType) {
-      filter.venueType = selectedVenueType
-    }
-
-    // Price range filter
-    if (selectedPrice) {
-      if (selectedPrice === 'low') {
-        filter.price = { $gte: 0, $lte: 1500 }
-      } else if (selectedPrice === 'medium') {
-        filter.price = { $gte: 1501, $lte: 2500 }
-      } else {
-        filter.price = { $gte: 2501 }
-      }
-    }
-
-    // Rating filter
-    if (selectedRating) {
-      // Assuming selectedRating is a minimum value, e.g., '4'
-      filter.rating = { $gte: Number(selectedRating) }
-    }
-
-    // 2. Configure pagination
-    const limit = parseInt(venuesPerPage)
-    const skip = (parseInt(page) - 1) * limit
-
-    // 3. Execute the query
-    const venues = await Venue.find(filter)
-      .sort({ name: 1 })
-      .skip(skip)
-      .limit(limit)
-      .exec()
-
-    // 4. (Optional) Get total count for pagination UI
-    const totalCount = await Venue.countDocuments(filter)
-
-    if (!venues || venues.length === 0) {
-      return res.status(404).json({
-        error: `We could not find any venue with your search terms.`
-      })
-    }
-    return res.status(200).json({
-      venues: venues,
-      totalPages: totalCount
-    })
-  } catch (err) {
+  catch (err) {
     return res.status(500).json({ error: 'something went wrong' })
   }
 }

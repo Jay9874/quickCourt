@@ -29,23 +29,27 @@ export default function AllVenues() {
                 <h2 className='text-2xl font-semibold mb-6 text-center'>My Venues</h2>
                 {isLoading ? <Loading size={18} className='mx-auto' />
                     : venues.length === 0 ? 'No venues added yet'
-                        : venues.map(venue => (
-                            <div
-                                key={venue._id}
-                                className='p-4 flex items-center justify-between border-2 border-gray-400 rounded-lg'
-                            >
-                                <p className='text-lg font-semibold'>{venue.name}</p>
-                                <div className='flex items-center gap-2'>
-                                    <Link
-                                        to={`/facility/court/${venue._id}`}
-                                        state={{ venue }}
-                                        className='text-green-600'
+                        : (
+                            <div className='space-y-4'>
+                                {venues.map(venue => (
+                                    <div
+                                        key={venue._id}
+                                        className='p-4 flex items-center justify-between border-2 border-gray-400 rounded-lg'
                                     >
-                                        Manage Court
-                                    </Link>
-                                </div>
+                                        <p className='text-lg font-semibold'>{venue.name}</p>
+                                        <div className='flex items-center gap-2'>
+                                            <Link
+                                                to={`/facility/court/${venue._id}`}
+                                                state={{ venue }}
+                                                className='text-green-600'
+                                            >
+                                                Manage Court
+                                            </Link>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
+                        )}
             </div>
         </div>
     )

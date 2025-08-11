@@ -7,6 +7,7 @@ const useVenueStore = create((set, get) => ({
   city: 'Ahmedabad',
   setCity: city => set({ city: city }),
   venues: [],
+
   fetchVenuesWithCity: async city => {
     try {
       set({ loading: true })
@@ -19,10 +20,11 @@ const useVenueStore = create((set, get) => ({
       const { venues, totalPages } = res.data
       set({ venues: venues, totalPages: totalPages })
       return { venues, totalPages }
-    } catch (err) {
-      console.log('err at loading venues: ', err)
+    }
+    catch (err) {
       set({ venues: [], totalPages: 0 })
-    } finally {
+    }
+    finally {
       set({ loading: false })
     }
   },
@@ -45,12 +47,12 @@ const useVenueStore = create((set, get) => ({
       )
       const { venues, totalPages } = res.data
       set({ venues: venues, totalPages: totalPages })
-      console.log('the res: ', res)
       return { venues, totalPages }
-    } catch (err) {
-      console.log('err: ', err)
+    }
+    catch (err) {
       set({ venues: [], totalPages: 0 })
-    } finally {
+    }
+    finally {
       set({ loading: false })
     }
   }

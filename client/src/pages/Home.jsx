@@ -6,7 +6,7 @@ import VenueCard from '../components/VenueCard'
 import Footer from '../components/Footer'
 import citiesData from '../data/citiesData.json'
 
-export default function Home () {
+export default function Home() {
   const { fetchVenuesWithCity, venues, city, setCity } = useVenueStore()
 
   const popularSports = [
@@ -43,15 +43,12 @@ export default function Home () {
   ]
 
   useEffect(() => {
-    fetchVenuesWithCity(city)
+    if (city.length > 0) fetchVenuesWithCity(city)
   }, [city])
-
-  console.log('all the venues are: ', venues)
 
   return (
     <div>
       <div className='relative flex h-[50vh]'>
-        {/* the bg container */}
         <div className='absolute top-0 w-full h-full'>
           <img
             className='object-cover'
@@ -60,9 +57,8 @@ export default function Home () {
             alt='the home background image of stadium'
           />
         </div>
-        {/* the left container*/}
-        <div className='h-full container mx-auto px-4 text-white bg-gradient-to-r from-black to-black/0 absolute top-0 left-0 flex justify-center flex-col p-4'>
-          <form>
+        <div className='w-full h-full text-white bg-gradient-to-r from-black to-black/0 absolute top-0 left-0 flex justify-center flex-col'>
+          <div className='container mx-auto p-4'>
             <div className='flex justify-center items-center p-1 border-2 rounded-md w-fit'>
               <div style={{ height: '24px', width: '24px' }}>
                 <svg
@@ -111,25 +107,24 @@ export default function Home () {
                 ))}
               </datalist>
             </div>
-          </form>
-          <div className='mt-4'>
-            <h1 className='text-2xl font-bold'>
-              Find Players and Venue Nearby
-            </h1>
-            <p className='mt-2'>
-              Seamlessly explore special venue to play with
-              <br />
-              sports enthusiasts just like you!
-            </p>
+            <div className='mt-4'>
+              <h1 className='text-2xl font-bold'>
+                Find Players and Venue Nearby
+              </h1>
+              <p className='mt-2'>
+                Seamlessly explore special venue to play with
+                <br />
+                sports enthusiasts just like you!
+              </p>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* the loaded venues */}
       <div className='container mx-auto p-4'>
         <div className='flex justify-between p-2'>
           <h1 className='text-xl font-bold'>
-            Book Venues in <span className='text-gray-500'>{city}</span>
+            Book Venues {city.length > 0 && <span>in <span className='text-gray-500'>{city}</span></span>}
           </h1>
           <p>
             <Link className='underline' to={'/venues'}>
@@ -137,31 +132,29 @@ export default function Home () {
             </Link>
           </p>
         </div>
-        <div className='flex overflow-scroll gap-24 p-4'>
+        <div className='flex overflow-scroll gap-24'>
           {venues.length === 0 ? (
             <div className='w-full p-4 rounded-md border border-gray-400'>
               No venues found in {city}.
             </div>
           ) : (
-            <div className='w-full'>
+            <div className='w-full flex gap-4'>
               {venues.map(venue => (
                 <VenueCard key={venue._id} venue={venue} />
               ))}
-              {/* the carousel buttons */}
-              <div className='flex justify-center items-center p-4 gap-8'>
+              {/* <div className='flex justify-center items-center p-4 gap-8'>
                 <button className='border border-gray-300 p-4 rounded-full'>
                   <FaChevronLeft />
                 </button>
                 <button className='border border-gray-300 p-4 rounded-full'>
                   <FaChevronRight />
                 </button>
-              </div>
+              </div> */}
             </div>
           )}
         </div>
       </div>
 
-      {/* the sports available */}
       <section className='py-12'>
         <div className='container mx-auto px-4'>
           <h2 className='text-xl font-bold mb-8'>Popular Sports</h2>

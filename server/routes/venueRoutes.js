@@ -1,12 +1,11 @@
 const express = require('express')
 const {
-  fetchVenuesByCity,
-  fetchVenuesByParams
+  fetchVenuesByParams,
+  fetchVenuesByCity
 } = require('../controllers/venueControllers')
 const router = express.Router()
 
-router.get('/city', fetchVenuesByCity)
-
 router.get('/', fetchVenuesByParams)
+router.get('/city', fetchVenuesByCity)
 
 module.exports = router

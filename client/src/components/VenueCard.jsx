@@ -22,7 +22,7 @@ const VenueCard = ({ venue }) => {
           <CiMapPin color='red' />
           <span>{venue.city}</span>
         </div>
-        {venue.courts && (
+        {venue.courts.length > 0 && (
           <>
             <p>₹{Math.min(...venue.courts.map(s => s.price))} Per Hour</p>
             <div className='flex flex-wrap items-center gap-1'>

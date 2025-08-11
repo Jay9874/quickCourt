@@ -5,6 +5,17 @@ import { toast } from 'sonner'
 import { FaRegEdit } from 'react-icons/fa'
 import { MdDelete } from 'react-icons/md'
 
+const sportOptions = [
+    { value: 'Basketball', label: 'Basketball' },
+    { value: 'Tennis', label: 'Tennis' },
+    { value: 'Soccer', label: 'Soccer' },
+    { value: 'Volleyball', label: 'Volleyball' },
+    { value: 'Badminton', label: 'Badminton' },
+    { value: 'Swimming', label: 'Swimming' },
+    { value: 'Cricket', label: 'Cricket' },
+    { value: 'Football', label: 'Football' },
+]
+
 export default function Court() {
     const location = useLocation();
     const navigate = useNavigate();
@@ -145,14 +156,24 @@ export default function Court() {
 
                     <div>
                         <label className='block mb-1 font-medium'>Sport</label>
-                        <input
+                        {/* <input
                             type='text'
                             name='sport'
                             value={courtInput.sport}
                             onChange={handleChange}
                             className='w-full px-3 py-2 border rounded'
                             required
-                        />
+                        /> */}
+                        <select
+                            name='sport'
+                            value={courtInput.sport}
+                            onChange={handleChange}
+                            className='w-full px-3 py-2.5 border rounded'
+                        >
+                            {sportOptions.map(item => (
+                                <option key={item.label} value={item.value}>{item.label}</option>
+                            ))}
+                        </select>
                     </div>
 
                     <div>

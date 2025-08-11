@@ -149,7 +149,7 @@ const VenueDetail = () => {
             <div className='info-section'>
               <h2>Sports Available</h2>
               <div className='sports-list'>
-                {venue.courts && (
+                {venue.courts.length > 0 && (
                   venue.courts.map((court, index) => (
                     <div key={index} className='sport-item'>
                       <div className='sport-header'>
@@ -259,7 +259,7 @@ const VenueDetail = () => {
           </div>
         </div>
 
-        {venue.courts && (
+        {venue.courts.length > 0 && (
           <div className='booking-section'>
             <div className='booking-info'>
               <h3>Ready to Book?</h3>

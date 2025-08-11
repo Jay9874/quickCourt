@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom'
 import useAuthStore from '../store/authStore'
 import { useLogout } from '../hooks/useLogout'
 
-export default function Navbar () {
+export default function Navbar() {
   const { user } = useAuthStore()
 
   const { isLoading, handleLogout } = useLogout()
@@ -29,21 +29,19 @@ export default function Navbar () {
     <>
       <div className='sticky z-10 top-0 border-b border-gray-300 bg-white'>
         <ul className='px-4 flex items-center justify-between'>
-          <div className='flex items-center'>
-            <NavLink to='' className='py-1'>
-              <img
-                src='/logo.png'
-                alt=''
-                className='size-[50px] object-cover'
-              />
-            </NavLink>
+          <NavLink to='' className='py-1 flex items-center'>
+            <img
+              src='/logo.png'
+              alt=''
+              className='size-[50px] object-cover'
+            />
             {user.role !== 'player' && (
               <>
                 <div className='mr-2 h-[25px] border-l border-gray-200' />
                 <p className='uppercase text-sm font-semibold'>{user.role}</p>
               </>
             )}
-          </div>
+          </NavLink>
           <NavLink
             to={'venues'}
             className={({ isActive }) =>
@@ -86,11 +84,10 @@ export default function Navbar () {
             <button
               disabled={isLoading}
               onClick={openModal}
-              className={`py-1 px-2 rounded-lg border font-light ${
-                isLoading
-                  ? 'bg-gray-50 hover:bg-gray-200 text-gray-500 !cursor-not-allowed'
-                  : 'bg-red-50 hover:bg-red-200 text-red-500'
-              }`}
+              className={`py-1 px-2 rounded-lg border font-light ${isLoading
+                ? 'bg-gray-50 hover:bg-gray-200 text-gray-500 !cursor-not-allowed'
+                : 'bg-red-50 hover:bg-red-200 text-red-500'
+                }`}
             >
               Logout
             </button>
@@ -119,11 +116,10 @@ export default function Navbar () {
               <button
                 onClick={confirmLogout}
                 disabled={isLoading}
-                className={`px-4 py-2 rounded ${
-                  isLoading
-                    ? 'bg-gray-50 text-gray-500 !cursor-not-allowed'
-                    : 'bg-red-500 text-white hover:bg-red-600'
-                }`}
+                className={`px-4 py-2 rounded ${isLoading
+                  ? 'bg-gray-50 text-gray-500 !cursor-not-allowed'
+                  : 'bg-red-500 text-white hover:bg-red-600'
+                  }`}
               >
                 {isLoading ? 'Logging out...' : 'Logout'}
               </button>

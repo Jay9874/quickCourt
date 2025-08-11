@@ -1,4 +1,3 @@
-import React from 'react'
 import FilterInput from './FilterInput'
 
 const sportOptions = [
@@ -9,7 +8,8 @@ const sportOptions = [
   { value: 'Volleyball', label: 'Volleyball' },
   { value: 'Badminton', label: 'Badminton' },
   { value: 'Swimming', label: 'Swimming' },
-  { value: 'Cricket', label: 'Cricket' }
+  { value: 'Cricket', label: 'Cricket' },
+  { value: 'Football', label: 'Football' },
 ]
 
 const priceOptions = [
@@ -33,7 +33,7 @@ const ratingOptions = [
 ]
 
 export const FilterSidebar = ({ filters, setFilters, clearFilters }) => {
-  function onFilterChange (e) {
+  function onFilterChange(e) {
     const { name, value } = e.target
     setFilters(prev => ({ ...prev, [name]: value }))
   }
