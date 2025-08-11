@@ -16,6 +16,7 @@ import VenueDetail from './pages/VenueDetail';
 import ProfilePage from './pages/Profile';
 import PlayerTestPage from './pages/Player/PlayerTest';
 import FacilityDashboard from './pages/Facility/Dashboard';
+import AddVenue from './pages/Facility/AddVenue';
 import AdminTestPage from './pages/Admin/AdminTest';
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
         <Route element={<ProtectedRoute allowedRoles={['facility']} />}>
           <Route path='/facility' element={<Layout Sidebar={FacilitySidebar} />}>
             <Route index element={<FacilityDashboard />} />
+            <Route path='add-venue' element={<AddVenue />} />
           </Route>
         </Route>
 
