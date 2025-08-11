@@ -12,11 +12,9 @@ export const useAuthFetch = () => {
 
             setUser(res.data.user);
             setAuthenticated(true);
-            return res.data.user;
         }
         catch {
             clearUser();
-            return null;
         }
         finally {
             setAuthenticating(false);

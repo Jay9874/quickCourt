@@ -12,6 +12,27 @@ const imagekit = new ImageKit({
     urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT,
 });
 
+const isEmailValid = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return emailRegex.test(email)
+}
+
+const validatePassword = (password) => {
+    return {
+        length: password.length >= 6,
+        lowercase: /[a-z]/.test(password),
+        uppercase: /[A-Z]/.test(password),
+        number: /[0-9]/.test(password),
+        specialChar: /[#@$%&]/.test(password),
+        noSpaces: /^\S*$/.test(password)
+    }
+}
+
+const isPasswordValid = (password) => {
+    const v = validatePassword(password)
+    return Object.values(v).every(Boolean)
+}
+
 exports.getMe = (req, res) => {
     res.status(200).json({ user: req.user });
 };
@@ -57,9 +78,13 @@ exports.signup = async (req, res) => {
         let avatarUrl = '';
 
         if (!name) return res.status(400).json({ message: 'Name is required' });
-        if (!email) return res.status(400).json({ message: 'Email is required' });
-        if (password.length < 6) return res.status(400).json({ message: 'Minimum password length is 6' });
-        if (role !== 'player' && role !== 'facility') {
+        if (!email || !isEmailValid(email)) {
+            return res.status(400).json({ message: 'Invalid email format' });
+        }
+        else if (!password || !isPasswordValid(password)) {
+            return res.status(400).json({ message: 'Invalid password format' });
+        }
+        else if (role !== 'player' && role !== 'facility') {
             return res.status(400).json({ message: 'Role is required' });
         }
 

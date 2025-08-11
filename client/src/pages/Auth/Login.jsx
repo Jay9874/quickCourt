@@ -5,6 +5,11 @@ import { toast } from 'sonner';
 import { useAuthFetch } from '../../hooks/useAuthFetch';
 import PasswordInput from '../../components/PasswordInput';
 
+const isEmailValid = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return emailRegex.test(email)
+}
+
 export default function LoginPage() {
     const navigate = useNavigate();
 
@@ -28,7 +33,7 @@ export default function LoginPage() {
         e.preventDefault();
 
         const { email, password } = formData;
-        if (!email) return toast.error('Email is required');
+        if (!isEmailValid(email)) return toast.error('Please enter a valid email address');
         if (!password) return toast.error('Password is required');
 
         try {
@@ -38,14 +43,10 @@ export default function LoginPage() {
                 email, password
             }, { withCredentials: true });
 
+            await fetchUser();
             toast.success('Login successful!');
 
-            const fetchedUser = await fetchUser();
-
-            if (fetchedUser?.role === 'player') navigate('/');
-            else if (fetchedUser?.role === 'facility') navigate('/facility');
-            else if (fetchedUser?.role === 'admin') navigate('/admin');
-            else navigate('/');
+            navigate('/');
         }
         catch (error) {
             toast.error(error.response?.data?.message || 'An error occurred');
@@ -63,7 +64,6 @@ export default function LoginPage() {
                     <div>
                         <label className='block mb-1 font-medium'>Email</label>
                         <input
-                            type='email'
                             name='email'
                             value={formData.email}
                             onChange={handleChange}

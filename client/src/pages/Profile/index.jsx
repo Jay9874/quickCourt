@@ -87,12 +87,6 @@ const ProfilePage = () => {
           <button className="edit-profile-btn" disabled>
             Edit Profile
           </button>
-          <button 
-            className="all-bookings-btn"
-            onClick={() => navigate('/profile/bookings')}
-          >
-            All Bookings
-          </button>
         </section>
 
         {/* Right Column */}

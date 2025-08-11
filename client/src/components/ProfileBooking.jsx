@@ -1,100 +1,186 @@
-import React from 'react'
-import { useBookings } from '../hooks/useBookings'
+import React, { useState } from 'react'
 
-
-export default function ProfileBooking() {
-
-    const { bookings, loading, error, refetch } = useBookings();
-
-    function fetchBookings(){
-        console.log("Fetching bookings...");
-        refetch();
+export default function ProfileBooking () {
+  const [activeTab, setActiveTab] = useState('all')
+  const bookings = [
+    {
+      _id: '1',
+      venueName: 'SBR Badminton',
+      sport: 'Badminton',
+      date: '2025-05-06',
+      startTime: '01:00 PM',
+      endTime: '02:00 PM',
+      location: 'Satellite, Jodhpur Village',
+      status: 'Confirmed',
+      canCancel: true
+    },
+    {
+      _id: '2',
+      venueName: 'Khel Gaon',
+      sport: 'Tennis',
+      date: '2025-05-07',
+      startTime: '05:00 PM',
+      endTime: '06:00 PM',
+      location: 'Navrangpura, Ahmedabad',
+      status: 'Confirmed',
+      canCancel: false
+    },
+    {
+      _id: '3',
+      venueName: 'SGVP Cricket Ground',
+      sport: 'Cricket',
+      date: '2025-05-05',
+      startTime: '10:00 AM',
+      endTime: '12:00 PM',
+      location: 'SGVP Road, Ahmedabad',
+      status: 'Cancelled'
     }
-    return (
-        <div>
-            <div style={{ background: '#111', borderRadius: 16, border: '1.5px solid #333', padding: 18 }}>
-                {
-                    bookings.filter(b => b.status !== 'Cancelled').map((booking) => (
-                        <div key={booking._id} style={{
-                            background: '#181818',
-                            borderRadius: 12,
-                            padding: 18,
-                            marginBottom: 16,
-                            border: '1.5px solid #444',
-                            boxShadow: '0 2px 8px #0003',
-                        }}>
-                            <div style={{ fontWeight: 600, fontSize: '1.05rem', marginBottom: 4 }}>
-                                <span role="img" aria-label="court">🎾</span> {booking.venueName} ({booking.sport})
-                            </div>
-                            <div style={{ display: 'flex', gap: 18, fontSize: 15, marginBottom: 2 }}>
-                                <span><span role="img" aria-label="date">📅</span> {booking.date}</span>
-                                <span><span role="img" aria-label="time">⏰</span> {booking.startTime} - {booking.endTime}</span>
-                            </div>
-                            <div style={{ fontSize: 15, marginBottom: 2 }}>
-                                <span role="img" aria-label="location">📍</span> {booking.location}
-                            </div>
-                            <div style={{ fontSize: 15, marginBottom: 2 }}>
-                                Status: <span style={{ color: '#0f3', fontWeight: 600, marginLeft: 4 }}>
-                                    <span role="img" aria-label="status">✅</span> {booking.status}
-                                </span>
-                            </div>
-                            <div style={{ marginTop: 8, display: 'flex', gap: 12 }}>
-                                {booking.status === 'Confirmed' && (
-                                    <>
-                                        <button
-                                            style={{ color: '#f33', background: 'none', border: 'none', cursor: 'pointer', marginRight: 12, fontFamily: 'monospace', fontSize: 15 }}
-                                            onClick={() => handleCancelBooking(booking._id)}
-                                        >
-                                            [Cancel Booking]
-                                        </button>
-                                        <button
-                                            style={{ color: '#0f3', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'monospace', fontSize: 15 }}
-                                            onClick={() => handleWriteReview(booking._id)}
-                                        >
-                                            [Write Review]
-                                        </button>
-                                    </>
-                                )}
-                                {booking.status === 'Confirmed' && !booking.canCancel && (
-                                    <button style={{ color: '#0f3', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'monospace', fontSize: 15 }}>
-                                        [Write Review]
-                                    </button>
-                                )}
-                            </div>
-                        </div>
-                    ))
-                }
-            </div>
-            <div>
-                {
-                    bookings.filter(b => b.status === 'Cancelled').map((booking) => (
-                        <div key={booking._id} style={{
-                            background: '#181818',
-                            borderRadius: 12,
-                            padding: 18,
-                            marginBottom: 16,
-                            border: '1px solid #333',
-                        }}>
-                            <div style={{ fontWeight: 600, fontSize: '1.05rem', marginBottom: 4 }}>
-                                <span role="img" aria-label="court">🎾</span> {booking.venueName} ({booking.sport})
-                            </div>
-                            <div style={{ display: 'flex', gap: 18, fontSize: 15, marginBottom: 2 }}>
-                                <span><span role="img" aria-label="date">📅</span> {booking.date}</span>
-                                <span><span role="img" aria-label="time">⏰</span> {booking.startTime} - {booking.endTime}</span>
-                            </div>
-                            <div style={{ fontSize: 15, marginBottom: 2 }}>
-                                <span role="img" aria-label="location">📍</span> {booking.location}
-                            </div>
-                            <div style={{ fontSize: 15, marginBottom: 2 }}>
-                                Status: <span style={{ color: '#f33', fontWeight: 600 }}>
-                                    <span role="img" aria-label="status">❌</span> {booking.status}
-                                </span>
-                            </div>
-                        </div>
-                    ))
-                }
-            </div>
-        </div>
+  ]
 
-    )
+  // Placeholder functions for event handlers
+  const handleCancelBooking = id => {
+    console.log('Cancel booking with ID:', id)
+  }
+
+  const handleWriteReview = id => {
+    console.log('Write a review for booking with ID:', id)
+  }
+
+
+  return (
+    <div className='min-h-screen flex-1 rounded-md border border-gray-400 p-8 shadow-lg'>
+      {/* <h2 className='text-3xl font-bold mb-6'>My Bookings</h2> */}
+      <div className='inline-flex border border-gray-400 rounded-full p-1'>
+        <button
+          onClick={() => setActiveTab('all')}
+          className={`px-4 py-2 rounded-full transition duration-300 ${
+            activeTab === 'all'
+              ? 'bg-green-950 text-white font-semibold'
+              : ''
+          }`}
+        >
+          All Bookings
+        </button>
+        <button
+          onClick={() => setActiveTab('cancelled')}
+          className={`px-4 py-2 rounded-full transition duration-300 ${
+            activeTab === 'cancelled'
+              ? 'bg-green-950 text-white font-semibold'
+              : ''
+          }`}
+        >
+          Cancelled
+        </button>
+      </div>
+
+      {/* Container for Confirmed and other non-cancelled bookings */}
+      <div className='mt-4 mb-8'>
+        {bookings
+          .filter(b => b.status !== 'Cancelled')
+          .map(booking => (
+            <div
+              key={booking._id}
+              className='rounded-xl p-5 mb-4 border border-[#444] shadow-lg'
+            >
+              <div className='font-semibold text-lg mb-1'>
+                {booking.venueName} ({booking.sport})
+              </div>
+              <div className='flex gap-5 text-sm mb-0.5'>
+                <span>
+                  <span role='img' aria-label='date'>
+                    📅
+                  </span>{' '}
+                  {booking.date}
+                </span>
+                <span>
+                  <span role='img' aria-label='time'>
+                    ⏰
+                  </span>{' '}
+                  {booking.startTime} - {booking.endTime}
+                </span>
+              </div>
+              <div className='text-sm mb-0.5'>
+                <span role='img' aria-label='location'>
+                  📍
+                </span>{' '}
+                {booking.location}
+              </div>
+              <div className='text-sm mb-0.5'>
+                Status:{' '}
+                <span className='text-[#0f3] font-semibold ml-1'>
+                  <span role='img' aria-label='status'>
+                    ✅
+                  </span>{' '}
+                  {booking.status}
+                </span>
+              </div>
+              <div className='mt-2 flex gap-3 flex-wrap'>
+                {booking.status === 'Confirmed' && booking.canCancel && (
+                  <button
+                    className='text-[#f33] bg-transparent border-none font-mono text-sm'
+                    onClick={() => handleCancelBooking(booking._id)}
+                  >
+                    [Cancel Booking]
+                  </button>
+                )}
+                {booking.status === 'Confirmed' && (
+                  <button
+                    className='text-[#0f3] bg-transparent border-none font-mono text-sm'
+                    onClick={() => handleWriteReview(booking._id)}
+                  >
+                    [Write Review]
+                  </button>
+                )}
+              </div>
+            </div>
+          ))}
+      </div>
+
+      {/* Container for Cancelled bookings */}
+      <div>
+        <h3 className='text-2xl font-bold mb-4'>Cancelled Bookings</h3>
+        {bookings
+          .filter(b => b.status === 'Cancelled')
+          .map(booking => (
+            <div
+              key={booking._id}
+              className='rounded-xl p-5 mb-4 border border-[#333]'
+            >
+              <div className='font-semibold text-lg mb-1'>
+                {booking.venueName} ({booking.sport})
+              </div>
+              <div className='flex gap-5 text-sm mb-0.5'>
+                <span>
+                  <span role='img' aria-label='date'>
+                    📅
+                  </span>{' '}
+                  {booking.date}
+                </span>
+                <span>
+                  <span role='img' aria-label='time'>
+                    ⏰
+                  </span>{' '}
+                  {booking.startTime} - {booking.endTime}
+                </span>
+              </div>
+              <div className='text-sm mb-0.5'>
+                <span role='img' aria-label='location'>
+                  📍
+                </span>{' '}
+                {booking.location}
+              </div>
+              <div className='text-sm mb-0.5'>
+                Status:{' '}
+                <span className='text-[#f33] font-semibold'>
+                  <span role='img' aria-label='status'>
+                    ❌
+                  </span>{' '}
+                  {booking.status}
+                </span>
+              </div>
+            </div>
+          ))}
+      </div>
+    </div>
+  )
 }

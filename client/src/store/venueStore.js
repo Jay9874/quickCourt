@@ -14,12 +14,12 @@ const useVenueStore = create((set, get) => ({
           withCredentials: true
         }
       )
-      toast.success('Loaded all the venues successfully!')
       set({ venues: res.data })
-    } catch (error) {
-      console.log('err while finding venues: ', error)
+    }
+    catch {
       toast.error('The venues could not be found in the city.')
-    } finally {
+    }
+    finally {
       set({ loading: false })
     }
   }
