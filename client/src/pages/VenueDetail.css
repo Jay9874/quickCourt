@@ -2,7 +2,6 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Header Section */
@@ -525,7 +524,8 @@
 }
 
 /* Loading and Error States */
-.loading, .error {
+.loading,
+.error {
   text-align: center;
   padding: 100px 20px;
   color: #7f8c8d;
@@ -541,37 +541,37 @@
   .venue-detail-container {
     padding: 15px;
   }
-  
+
   .venue-header h1 {
     font-size: 2.2rem;
   }
-  
+
   .venue-meta {
     flex-direction: column;
     align-items: flex-start;
   }
-  
+
   .main-photo {
     height: 300px;
   }
-  
+
   .venue-info-grid {
     grid-template-columns: 1fr;
     gap: 20px;
   }
-  
+
   .info-section {
     padding: 20px;
   }
-  
+
   .amenities-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .reviews-section {
     padding: 20px;
   }
-  
+
   .booking-section {
     padding: 25px 20px;
   }
@@ -581,20 +581,20 @@
   .venue-header h1 {
     font-size: 1.8rem;
   }
-  
+
   .main-photo {
     height: 250px;
   }
-  
+
   .photo-thumbnails img {
     width: 80px;
     height: 60px;
   }
-  
+
   .modal-content {
     padding: 15px;
   }
-  
+
   .modal-thumbnails img {
     width: 60px;
     height: 45px;

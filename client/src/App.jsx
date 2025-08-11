@@ -2,6 +2,9 @@ import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useAuthFetch } from './hooks/useAuthFetch';
 import ProtectedRoute from './ProtectedRoute';
+import Layout from './components/Layout';
+import FacilitySidebar from './components/Sidebar/FacilitySidebar';
+import AdminSidebar from './components/Sidebar/AdminSidebar';
 import Home from './pages/Home';
 import LoginPage from './pages/Auth/Login';
 import SignupPage from './pages/Auth/Signup';
@@ -9,9 +12,8 @@ import VerificationPage from './pages/Auth/Verify';
 import ForgotPasswordPage from './pages/Auth/Forgot';
 import ResetPasswordPage from './pages/Auth/Reset';
 import Venues from './pages/Venues';
-
 import VenueDetail from './pages/VenueDetail';
-import ProfilePage from './pages/common/Profile-Page';
+import ProfilePage from './pages/Profile';
 import PlayerTestPage from './pages/Player/PlayerTest';
 import FacilityDashboard from './pages/Facility/Dashboard';
 import AdminTestPage from './pages/Admin/AdminTest';
@@ -43,13 +45,15 @@ function App() {
         </Route>
 
         <Route element={<ProtectedRoute allowedRoles={['facility']} />}>
-          <Route path='/facility'>
+          <Route path='/facility' element={<Layout Sidebar={FacilitySidebar} />}>
             <Route index element={<FacilityDashboard />} />
           </Route>
         </Route>
 
         <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
-          <Route path='/admin' element={<AdminTestPage />} />
+          <Route path='/admin' element={<Layout Sidebar={AdminSidebar} />}>
+            <Route index element={<AdminTestPage />} />
+          </Route>
         </Route>
 
         <Route path='*' element={<>Not Found</>} />

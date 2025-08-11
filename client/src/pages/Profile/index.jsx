@@ -1,9 +1,8 @@
 
-import React, { useState } from "react";
-import "./Profile-Page.css";
+import "./style.css";
+import { useState } from "react";
 import useAuthStore from "../../store/authStore";
 import axios from "axios";
-
 
 const ProfilePage = () => {
   const user = useAuthStore((state) => state.user);
@@ -155,7 +154,7 @@ const ProfilePage = () => {
         </section>
       </main>
     </div>
-  );
-};
+  )
+}
 
-export default ProfilePage;
+export default ProfilePage

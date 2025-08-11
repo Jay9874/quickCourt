@@ -116,7 +116,7 @@ export default function Home () {
         {/* the left container*/}
         <div className='flex justify-center flex-col p-4'>
           <form>
-            <div className='flex p-1 border border-2 rounded-md w-fit'>
+            <div className='flex p-1 border-2 rounded-md w-fit'>
               <div style={{ height: '24px', width: '24px' }}>
                 <svg
                   viewBox='0 0 24 24'
