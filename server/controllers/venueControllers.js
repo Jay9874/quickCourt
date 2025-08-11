@@ -1,7 +1,7 @@
 const Venue = require('../models/Venue')
 
 exports.fetchVenuesByCity = async (req, res) => {
-  const {} = req.query
+  const {city} = req.query
   console.log('all the queries are: ', req.query)
 
   if (!city) {

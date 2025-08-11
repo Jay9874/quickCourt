@@ -41,12 +41,16 @@ export default function ResetPasswordPage() {
                     <PasswordInput
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        useValidation={true}
                     />
                     <div>
                         <label className='block mb-1 font-medium'>Confirm Password</label>
-                        <PasswordInput
+                        <input
+                            type='password'
+                            name='confirmPassword'
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
+                            className='w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
                         />
                     </div>
                     <button

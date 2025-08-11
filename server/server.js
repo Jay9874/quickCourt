@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 
 const verifyUser = require('./middlewares/verifyUser')
 const verifyFacility = require('./middlewares/verifyFacility')
+const verifyAdmin = require('./middlewares/verifyAdmin')
 
 const app = express()
 
@@ -22,9 +23,10 @@ app.use(express.json())
 
 
 app.use('/api/auth', require('./routes/authRoutes'))
-app.use('/api/facility', verifyFacility, require('./routes/facilityRoutes'))
 app.use('/api/venues', verifyUser, require('./routes/venueRoutes'))
 app.use('/api/bookings', require('./routes/bookingRoutes'));
+app.use('/api/facility', verifyFacility, require('./routes/facilityRoutes'))
+app.use('/api/admin', verifyAdmin, require('./routes/adminRoutes'))
 
 mongoose
   .connect(process.env.MONGODB_URI)

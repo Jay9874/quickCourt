@@ -150,20 +150,20 @@ const VenueDetail = () => {
               <h2>Sports Available</h2>
               <div className='sports-list'>
                 {venue.courts && (
-                  venue.courts.map((sport, index) => (
+                  venue.courts.map((court, index) => (
                     <div key={index} className='sport-item'>
                       <div className='sport-header'>
-                        <h3>{sport.name}</h3>
+                        <h3>{court.sport}</h3>
                         <span className='price'>
-                          ₹{sport.price}/hour
+                          ₹{court.price}/hour
                         </span>
                       </div>
-                      <p className='sport-description'>{sport.description}</p>
+                      <p className='sport-description'>{court.description}</p>
                       <span
-                        className={`availability ${sport.available ? 'available' : 'unavailable'
+                        className={`availability ${court.available ? 'available' : 'unavailable'
                           }`}
                       >
-                        {sport.available ? 'Available' : 'Unavailable'}
+                        {court.available ? 'Available' : 'Unavailable'}
                       </span>
                     </div>
                   ))
@@ -259,18 +259,24 @@ const VenueDetail = () => {
           </div>
         </div>
 
-        <div className='booking-section'>
-          <div className='booking-info'>
-            <h3>Ready to Book?</h3>
-            <p>
-              Starting from ₹
-              {Math.min(...venue.courts.map(s => s.price))}/hour
-            </p>
+        {venue.courts && (
+          <div className='booking-section'>
+            <div className='booking-info'>
+              <h3>Ready to Book?</h3>
+              <p>
+                Starting from ₹
+                {Math.min(...venue.courts.map(s => s.price))}/hour
+              </p>
+            </div>
+            <Link
+              to={`/booking/${venue._id}`}
+              state={{ venue }}
+              className='book-now-btn'
+            >
+              Book Now
+            </Link>
           </div>
-          <button onClick={handleBookNow} className='book-now-btn'>
-            Book Now
-          </button>
-        </div>
+        )}
 
         {showAllPhotos && (
           <div className='photo-modal' onClick={() => setShowAllPhotos(false)}>
