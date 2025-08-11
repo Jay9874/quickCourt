@@ -117,7 +117,7 @@ export const Venues = () => {
         venue.location.toLowerCase().includes(searchTerm.toLowerCase())
 
       const matchesSport =
-        !selectedSport || venue.sports.includes(selectedSport)
+        !selectedSport || venue.courts.map(item => item.sport.includes(selectedSport))
 
       const matchesPrice =
         !selectedPrice ||

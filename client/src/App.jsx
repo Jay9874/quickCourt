@@ -13,13 +13,13 @@ import ForgotPasswordPage from './pages/Auth/Forgot'
 import ResetPasswordPage from './pages/Auth/Reset'
 import Venues from './pages/Venues'
 import VenueDetail from './pages/VenueDetail'
-import CourtBooking from './pages/CourtBooking';
-
+import CourtBooking from './components/CourtBooking'
 import ProfilePage from './pages/Profile/Profile'
 import PlayerTestPage from './pages/Player/PlayerTest'
 import FacilityDashboard from './pages/Facility/Dashboard'
 import AllVenues from './pages/Facility/AllVenues'
 import AddVenue from './pages/Facility/AddVenue'
+import Court from './pages/Facility/Court'
 import AdminTestPage from './pages/Admin/AdminTest'
 import ProfileBooking from './components/ProfileBooking'
 import EditProfile from './pages/Profile/EditProfile'
@@ -39,7 +39,7 @@ function App() {
           <Route path='/venues' element={<Venues />} />
           <Route path='/venues/:id' element={<VenueDetail />} />
           <Route path='/booking/:venueId' element={<CourtBooking />} />
-          <Route path='/profile' element={<ProfilePage />} >
+          <Route path='/profile' element={<ProfilePage />}>
             <Route path='edit' element={<EditProfile />} />
             <Route path='bookings' element={<div></div>} />
           </Route>
@@ -61,6 +61,7 @@ function App() {
             <Route index element={<FacilityDashboard />} />
             <Route path='all-venues' element={<AllVenues />} />
             <Route path='add-venue' element={<AddVenue />} />
+            <Route path='court/:venueId' element={<Court />} />
           </Route>
         </Route>
 

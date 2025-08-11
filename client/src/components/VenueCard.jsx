@@ -1,11 +1,10 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { CiMapPin } from 'react-icons/ci'
+import { FcSportsMode } from "react-icons/fc";
 import VenueTag from './VenueTag'
 // import StarRating from './StarRating'
 
 const VenueCard = ({ venue }) => {
-  const navigate = useNavigate()
   console.log('the venue is: ', venue)
   const tags = [
     {
@@ -15,10 +14,10 @@ const VenueCard = ({ venue }) => {
   ]
 
   return (
-    <div className='w-48 shrink-0 border border-1 p-2 rounded-md'>
+    <div className='w-48 shrink-0 bg-gray-50 border border-gray-200 p-2 rounded-md'>
       {/* Image container */}
       <div className='w-full'>
-        <img src={venue.images[0]} alt='venue view' />
+        <img src={venue.images[0]} alt='venue view' className='rounded' />
       </div>
       {/* info container */}
       <div className='flex flex-col gap-2'>
@@ -36,25 +35,22 @@ const VenueCard = ({ venue }) => {
           <span>250</span>
           <span>Per Hour</span>
         </div>
-        {/* for tags */}
-        <div className='flex flex-wrap gap-1'>
-          {venue.sports.map((tag, index) => (
-            <VenueTag key={index} tag={tag} />
-          ))}
-        </div>
-        {/* view details button */}
+        {venue.courts && (
+          <div className='flex flex-wrap items-center gap-1'>
+            <FcSportsMode />
+            {venue.courts.map((court, index) => (
+              <VenueTag key={index} tag={court.sport} />
+            ))}
+          </div>
+        )}
         <div className='flex justify-center items-center mt-2'>
-          <button
-            onClick={() => navigate(`/venues/${venue.id}`)}
-            className='
-            border-1
-            border-gray-600
-            text-green-600
-            p-2
-            rounded-md'
+          <Link
+            to={`/venues/${venue._id}`}
+            state={{ venue }}
+            className='bg-white border-1 border-gray-200 text-green-600 p-2 rounded-md'
           >
             View Details
-          </button>
+          </Link>
         </div>
       </div>
     </div>
@@ -62,61 +58,3 @@ const VenueCard = ({ venue }) => {
 }
 
 export default VenueCard
-
-/*
- // <div className="bg-white rounded-xl overflow-hidden shadow-medium hover:shadow-strong transition-all duration-300 hover:-translate-y-1">
-    <div className='h-48 flex'>
-      <div className='relative overflow-hidden'>
-        <img
-          src={venue.image}
-          alt={venue.name}
-          className='w-full h-full'
-        />
-      </div>
-
-      <div className='p-6 space-y-4'>
-        <h3 className='text-xl font-semibold text-secondary-800 leading-tight'>
-          {venue.name}
-        </h3>
-
-        <div className='flex flex-wrap gap-2'>
-          {venue.sports.map((sport, index) => (
-            <span
-              key={index}
-              className='bg-primary-500 text-white px-3 py-1 rounded-full text-sm font-medium'
-            >
-              {sport}
-            </span>
-          ))}
-        </div>
-
-        <div className='space-y-2'>
-          <div className='flex items-center justify-between'>
-            <span className='text-sm text-secondary-600'>Starting from:</span>
-            <span className='text-lg font-bold text-success-600'>
-              Rs {venue.pricePerHour}/hour
-            </span>
-          </div>
-
-          <div className='flex items-center gap-2 text-secondary-600'>
-            <span className='text-lg'>📍</span>
-            <span className='text-sm'>{venue.location}</span>
-          </div>
-
-          <div className='flex items-center gap-3'>
-            <StarRating rating={venue.rating} />
-            <span className='text-sm font-semibold text-secondary-700'>
-              {venue.rating}/5
-            </span>
-          </div>
-        </div>
-
-        <button
-          onClick={() => navigate(`/venues/${venue.id}`)}
-          className='w-full btn-success'
-        >
-          View Details
-        </button>
-      </div>
-    </div>
-*/

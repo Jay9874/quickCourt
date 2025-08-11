@@ -13,10 +13,8 @@ export default function AddVenue() {
         city: 'Ahmedabad',
         address: '',
         description: '',
-        sports: [],
         amenities: []
     });
-    const [sportsInput, setSportsInput] = useState('');
     const [amenitiesInput, setAmenitiesInput] = useState('');
     const [isLoading, setLoading] = useState(false);
 
@@ -59,7 +57,7 @@ export default function AddVenue() {
             const lowerValue = value.toLowerCase();
 
             if (formData[type].some(item => item.toLowerCase() === lowerValue)) {
-                return toast.error(`${type === 'sports' ? 'Sport' : 'Amenity'} already added`);
+                return toast.error('Amenity already added');
             }
 
             setFormData(prev => ({
@@ -67,8 +65,7 @@ export default function AddVenue() {
                 [type]: [...prev[type], value]
             }));
 
-            if (type === 'sports') setSportsInput('');
-            else setAmenitiesInput('');
+            setAmenitiesInput('');
         }
         else if (e.key === 'Backspace' && !e.target.value) {
             setFormData(prev => ({
@@ -103,9 +100,6 @@ export default function AddVenue() {
         else if (!formData.description.trim()) {
             return toast.error('Description is required');
         }
-        else if (formData.sports.length === 0) {
-            return toast.error('Please add at least one sport');
-        }
         else if (formData.amenities.length === 0) {
             return toast.error('Please add at least one amenity');
         }
@@ -119,7 +113,6 @@ export default function AddVenue() {
             data.append('city', formData.city);
             data.append('address', formData.address);
             data.append('description', formData.description);
-            formData.sports.forEach(sport => data.append('sports', sport));
             formData.amenities.forEach(amenity => data.append('amenities', amenity));
             images.forEach(({ file }) => data.append('images', file));
 
@@ -228,26 +221,6 @@ export default function AddVenue() {
                             value={formData.description}
                             onChange={handleChange}
                             rows='3'
-                            className='w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
-                        />
-                    </div>
-
-                    <div>
-                        <label className='block mb-1 font-medium'>Sports Supported</label>
-                        <div className='flex flex-wrap gap-2 mb-2'>
-                            {formData.sports.map((sport, i) => (
-                                <span key={i} className='bg-blue-100 text-blue-700 px-3 py-1 rounded-full flex items-center gap-2'>
-                                    {sport}
-                                    <button type='button' onClick={() => removeTag('sports', i)}>×</button>
-                                </span>
-                            ))}
-                        </div>
-                        <input
-                            type='text'
-                            value={sportsInput}
-                            onChange={(e) => setSportsInput(e.target.value)}
-                            onKeyDown={(e) => handleTagInput(e, 'sports')}
-                            placeholder='Type and press Enter'
                             className='w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
                         />
                     </div>

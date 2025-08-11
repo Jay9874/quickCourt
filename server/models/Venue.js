@@ -29,6 +29,13 @@ const venueSchema = new mongoose.Schema({
         type: [String],
         required: true
     },
+    courts: [{
+        name: { type: String },
+        description: { type: String },
+        sport: { type: String },
+        price: { type: Number },
+        available: { type: Boolean },
+    }],
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

@@ -21,7 +21,7 @@ exports.listVenues = async (req, res) => {
 
 exports.createVenue = async (req, res) => {
     try {
-        const { name, city, address, description, sports, amenities } = req.body;
+        const { name, city, address, description, amenities } = req.body;
 
         if (!name) {
             return res.status(400).json({ message: 'Name is required' });
@@ -34,9 +34,6 @@ exports.createVenue = async (req, res) => {
         }
         if (!description) {
             return res.status(400).json({ message: 'Description is required' });
-        }
-        if (sports.length === 0) {
-            return res.status(400).json({ message: 'Please add at least one sport' });
         }
         if (amenities.length === 0) {
             return res.status(400).json({ message: 'Please add at least one amenity' });
@@ -55,7 +52,6 @@ exports.createVenue = async (req, res) => {
             uploadedImages.push(uploadResult.url);
         }
 
-        const sportsArray = Array.isArray(sports) ? sports : (sports ? [sports] : []);
         const amenitiesArray = Array.isArray(amenities) ? amenities : (amenities ? [amenities] : []);
 
         const newVenue = new Venue({
@@ -63,7 +59,6 @@ exports.createVenue = async (req, res) => {
             city,
             address,
             description,
-            sports: sportsArray,
             amenities: amenitiesArray,
             images: uploadedImages,
             createdBy: req.user._id
@@ -77,3 +72,30 @@ exports.createVenue = async (req, res) => {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
 };
+
+exports.updateVenueCourts = async (req, res) => {
+    const { venueId } = req.params
+    const { courts } = req.body
+
+    if (!venueId) {
+        return res.status(400).json({ message: 'Venue ID is required' })
+    }
+    else if (!courts || !courts.length) {
+        return res.status(400).json({ message: 'Please add at least one court' })
+    }
+
+    try {
+        const venue = await Venue.findOne({ _id: venueId, createdBy: req.user._id })
+        if (!venue) {
+            return res.status(404).json({ message: 'Venue not found or unauthorized' })
+        }
+
+        venue.courts = courts
+        await venue.save()
+
+        res.status(200).json({ message: 'Courts updated successfully' })
+    }
+    catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message })
+    }
+}

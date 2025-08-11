@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios';
-import { toast } from 'sonner';
 import Loading from '../../components/Loading';
 
 export default function AllVenues() {
@@ -32,9 +32,18 @@ export default function AllVenues() {
                         : venues.map(venue => (
                             <div
                                 key={venue._id}
-                                className='p-4 border-2 border-gray-400 rounded-lg'
+                                className='p-4 flex items-center justify-between border-2 border-gray-400 rounded-lg'
                             >
-                                {venue.name}
+                                <p className='text-lg font-semibold'>{venue.name}</p>
+                                <div className='flex items-center gap-2'>
+                                    <Link
+                                        to={`/facility/court/${venue._id}`}
+                                        state={{ venue }}
+                                        className='text-green-600'
+                                    >
+                                        Manage Court
+                                    </Link>
+                                </div>
                             </div>
                         ))}
             </div>
