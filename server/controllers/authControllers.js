@@ -1,9 +1,10 @@
 const ImageKit = require('imagekit');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 const User = require('../models/User');
-const cache = require("../utils/cache")
-const sendMail = require("../utils/mailer");
+const cache = require('../utils/cache')
+const sendMail = require('../utils/mailer');
 
 const imagekit = new ImageKit({
     publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
@@ -112,7 +113,6 @@ exports.signup = async (req, res) => {
             });
     }
     catch (error) {
-        console.log(error)
         res.status(500).json({ message: 'Server error' });
     }
 };
@@ -122,7 +122,7 @@ exports.verifyOtp = async (req, res) => {
     const cachedOtp = cache.get(email);
 
     if (cachedOtp !== otp) {
-        return res.status(400).json({ message: "Invalid OTP" });
+        return res.status(400).json({ message: 'Invalid OTP' });
     }
 
     const user = await User.findOneAndUpdate(
@@ -132,12 +132,66 @@ exports.verifyOtp = async (req, res) => {
     );
 
     if (!user) {
-        return res.status(404).json({ message: "User not found" });
+        return res.status(404).json({ message: 'User not found' });
     }
 
     cache.del(email);
 
-    res.status(200).json({ message: "Email verified successfully" });
+    res.status(200).json({ message: 'Email verified successfully' });
+};
+
+exports.forgotPassword = async (req, res) => {
+    try {
+        const { email } = req.body;
+
+        if (!email) return res.status(400).json({ message: 'Email is required' });
+
+        const user = await User.findOne({ email });
+        if (!user) return res.status(404).json({ message: 'User not found' });
+
+        const token = crypto.randomBytes(32).toString('hex');
+
+        cache.set(`reset_${token}`, email);
+
+        const resetLink = `${process.env.CLIENT_URL}/reset/${token}`;
+        await sendMail({
+            from: `${process.env.EMAIL_USER} <${process.env.EMAIL_ADDRESS}>`,
+            to: email,
+            subject: 'Password Reset - QuickCourt',
+            html: `<p>Click <a href='${resetLink}'>here</a> to reset your password. This link will expire in 15 minutes.</p>`
+        });
+
+        res.status(200).json({ message: 'Password reset link sent to your email' });
+    }
+    catch (error) {
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
+exports.resetPassword = async (req, res) => {
+    try {
+        const { token } = req.params;
+        const { password } = req.body;
+
+        if (!password || password.length < 6) {
+            return res.status(400).json({ message: 'Password must be at least 6 characters' });
+        }
+
+        const email = cache.get(`reset_${token}`);
+        if (!email) {
+            return res.status(400).json({ message: 'Invalid or expired reset link' });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+        await User.findOneAndUpdate({ email }, { password: hashedPassword });
+
+        cache.del(`reset_${token}`);
+
+        res.status(200).json({ message: 'Password reset successful' });
+    }
+    catch (error) {
+        res.status(500).json({ message: 'Server error' });
+    }
 };
 
 exports.logout = (req, res) => {

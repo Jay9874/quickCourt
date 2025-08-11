@@ -9,14 +9,13 @@ export default function ForgotPasswordPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         if (!email) return toast.error('Email is required');
 
         try {
             setIsLoading(true);
-            await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/auth/forgot-password`, { email });
+            await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/auth/forgot`, { email });
             toast.success('Password reset link sent to your email');
-            setEmail('');
         }
         catch (error) {
             toast.error(error.response?.data?.message || 'Something went wrong');

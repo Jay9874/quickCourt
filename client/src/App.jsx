@@ -7,10 +7,14 @@ import LoginPage from './pages/Auth/Login';
 import SignupPage from './pages/Auth/Signup';
 import VerificationPage from './pages/Auth/Verify';
 import ForgotPasswordPage from './pages/Auth/Forgot';
+import ResetPasswordPage from './pages/Auth/Reset';
 import Venues from './pages/Venues';
 
 import VenueDetail from './pages/VenueDetail';
 import ProfilePage from './pages/common/Profile-Page';
+import PlayerTestPage from './pages/Player/PlayerTest';
+import FacilityTestPage from './pages/Facility/FacilityTest';
+import AdminTestPage from './pages/Admin/AdminTest';
 
 function App() {
   const { fetchUser } = useAuthFetch();
@@ -24,8 +28,8 @@ function App() {
       <Routes>
         <Route element={<ProtectedRoute />}>
           <Route path='/' element={<Home />} />
-          <Route path='/player' element={<Home />} />
-          <Route path='/facility' element={<Home />} />
+          <Route path='/venues' element={<Venues />} />
+          <Route path='/venues/:id' element={<VenueDetail />} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='/signup' element={<SignupPage />} />
           <Route path='/verify' element={<VerificationPage />} />
@@ -35,6 +39,7 @@ function App() {
           <Route path='/profile' element={<ProfilePage />} />
           
         </Route>
+
         <Route path='*' element={<>Not Found</>} />
       </Routes>
     </BrowserRouter>

@@ -1,11 +1,22 @@
-import React from 'react'
 import { NavLink } from 'react-router-dom'
+import useAuthStore from '../store/authStore'
+import { useLogout } from '../hooks/useLogout'
 
-export default function Navbar () {
+export default function Navbar() {
+  const { user } = useAuthStore();
+
+  const { isLoading, handleLogout } = useLogout();
+
   return (
     <div className='sticky top-0 border-b-1 border-gray-300 bg-white'>
-      <ul className='flex justify-between'>
-        <NavLink to=''>QuickCourt</NavLink>
+      <ul className='px-4 flex items-center justify-between'>
+        <NavLink to='' className='py-1'>
+          <img
+            src='/logo.png'
+            alt=''
+            className='size-[50px] object-cover'
+          />
+        </NavLink>
 
         <NavLink
           to='venues'
@@ -14,25 +25,29 @@ export default function Navbar () {
               isActive
                 ? 'text-white bg-amber-600 hover:bg-amber-700'
                 : 'hover:bg-gray-200',
-              'rounded-3xl  py-1 px-4 cursor-pointer'
+              'rounded-3xl py-1 px-4 cursor-pointer'
             ].join(' ')
           }
         >
           Venue
         </NavLink>
-        <NavLink
-          to='court-booking'
-          className={({ isActive }) =>
-            [
-              isActive
-                ? 'text-white bg-amber-600 hover:bg-amber-700'
-                : 'hover:bg-gray-200',
-              'rounded-3xl  py-1 px-4 cursor-pointer'
-            ].join(' ')
-          }
-        >
-          Court Booking
-        </NavLink>
+
+        <div className='flex items-center gap-4'>
+          <div className='size-[34px] rounded-full bg-blue-50 hover:bg-blue-200 border border-blue-500 overflow-hidden'>
+            <img
+              src={user.avatar || '/user.png'}
+              alt=''
+              className='size-full object-cover'
+            />
+          </div>
+          <button
+            disabled={isLoading}
+            onClick={handleLogout}
+            className={`py-1 px-2 rounded-lg border font-light ${isLoading ? 'bg-gray-50 hover:bg-gray-200 text-gray-500 !cursor-not-allowed' : 'bg-red-50 hover:bg-red-200 text-red-500 cursor-pointer'}`}
+          >
+            Logout
+          </button>
+        </div>
       </ul>
     </div>
   )

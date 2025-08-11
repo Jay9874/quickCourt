@@ -7,7 +7,9 @@ const {
     login,
     signup,
     verifyOtp,
-    logout
+    logout,
+    forgotPassword,
+    resetPassword
 } = require('../controllers/authControllers');
 
 const storage = multer.memoryStorage();
@@ -17,6 +19,8 @@ router.get('/me', verifyUser, getMe);
 router.post('/login', login);
 router.post('/signup', upload.single('avatar'), signup);
 router.post('/verify', verifyOtp);
+router.post('/forgot', forgotPassword);
+router.post('/reset/:token', resetPassword);
 router.get('/logout', logout);
 
 module.exports = router;
