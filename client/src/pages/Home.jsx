@@ -124,7 +124,7 @@ export default function Home () {
           />
         </div>
         {/* the left container*/}
-        <div className='h-full w-[75%] text-white bg-gradient-to-r from-black to-black/0 absolute top-0 left-0 flex justify-center flex-col p-4'>
+        <div className='h-full w-[100%] text-white bg-gradient-to-r from-black to-black/0 absolute top-0 left-0 flex justify-center flex-col p-4'>
           <form>
             <div className='flex justify-center items-center p-1 border-2 rounded-md w-fit'>
               <div style={{ height: '24px', width: '24px' }}>
@@ -196,7 +196,7 @@ export default function Home () {
           ))}
         </div>
         {/* the carousel buttons */}
-        <div className='flex justify-center items-center p-4 gap-2'>
+        <div className='flex justify-center items-center p-4 gap-8'>
           <button className='border border-gray-300 p-4 rounded-full'>
             <FaChevronLeft />
           </button>
