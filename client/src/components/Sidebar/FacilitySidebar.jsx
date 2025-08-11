@@ -1,6 +1,23 @@
-const FacilitySidebar = () => {
+import { NavLink } from 'react-router-dom';
+
+const FacilitySidebar = ({ onLinkClick }) => {
   return (
-    <div>FacilitySidebar</div>
+    <div className='space-y-4 p-4'>
+      <NavLink
+        to='add-venue'
+        onClick={onLinkClick}
+        className={({ isActive }) =>
+          [
+            isActive
+              ? 'text-white bg-gray-600 hover:bg-gray-700'
+              : 'bg-white hover:bg-gray-200',
+            'w-full block rounded-3xl py-1 px-4 cursor-pointer'
+          ].join(' ')
+        }
+      >
+        Add Venue
+      </NavLink>
+    </div>
   )
 }
 

@@ -1,4 +1,4 @@
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import useAuthStore from '../store/authStore'
 import { useLogout } from '../hooks/useLogout'
 
@@ -33,7 +33,7 @@ export default function Navbar() {
               isActive
                 ? 'text-white bg-amber-600 hover:bg-amber-700'
                 : 'hover:bg-gray-200',
-              'rounded-3xl py-1 px-4 cursor-pointer'
+              'rounded-lg py-1 px-4 cursor-pointer'
             ].join(' ')
           }
         >
@@ -42,12 +42,19 @@ export default function Navbar() {
 
         <div className='flex items-center gap-4'>
           {user.role !== 'player' && (
-            <Link
+            <NavLink
               to={`/${user.role}`}
-              className='py-1 px-2 rounded-lg font-light border bg-blue-50 border-blue-50 hover:bg-blue-200 text-blue-500'
+              className={({ isActive }) =>
+                [
+                  isActive
+                    ? 'bg-blue-500 border-blue-500 text-white'
+                    : 'bg-blue-50 border-blue-50 hover:bg-blue-200 text-blue-500',
+                  'border rounded-lg py-1 px-4 cursor-pointer'
+                ].join(' ')
+              }
             >
               Dashboard
-            </Link>
+            </NavLink>
           )}
           <div className='size-[34px] rounded-full bg-blue-50 hover:bg-blue-200 border border-blue-500 overflow-hidden'>
             <img
