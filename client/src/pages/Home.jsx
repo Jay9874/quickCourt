@@ -183,7 +183,7 @@ export default function Home () {
             <p className='mt-2'>
               Seamlessly explore special venue to play with
               <br />
-              sports enthuasts just like you!
+              sports enthusiasts just like you!
             </p>
           </div>
         </div>

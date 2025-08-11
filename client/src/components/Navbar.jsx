@@ -1,22 +1,17 @@
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import useAuthStore from '../store/authStore'
 import { useLogout } from '../hooks/useLogout'
 
-export default function Navbar() {
-  const { user } = useAuthStore();
-
-  const { isLoading, handleLogout } = useLogout();
+export default function Navbar () {
+  const { user } = useAuthStore()
+  const { isLoading, handleLogout } = useLogout()
 
   return (
     <div className='sticky z-10 top-0 border-b-1 border-gray-300 bg-white'>
       <ul className='px-4 flex items-center justify-between'>
         <div className='flex items-center'>
           <NavLink to='' className='py-1'>
-            <img
-              src='/logo.png'
-              alt=''
-              className='size-[50px] object-cover'
-            />
+            <img src='/logo.png' alt='' className='size-[50px] object-cover' />
           </NavLink>
           {user.role !== 'player' && (
             <>
@@ -56,13 +51,16 @@ export default function Navbar() {
               Dashboard
             </NavLink>
           )}
-          <div className='size-[34px] rounded-full bg-blue-50 hover:bg-blue-200 border border-blue-500 overflow-hidden'>
-            <img
-              src={user.avatar || '/user.png'}
-              alt=''
-              className='size-full object-cover'
-            />
-          </div>
+          <Link to={'profile'}>
+            <div className='size-[34px] rounded-full bg-blue-50 hover:bg-blue-200 border border-blue-500 overflow-hidden'>
+              <img
+                src={user.avatar || '/user.png'}
+                alt=''
+                className='size-full object-cover'
+              />
+            </div>
+          </Link>
+
           <button
             disabled={isLoading}
             onClick={handleLogout}
