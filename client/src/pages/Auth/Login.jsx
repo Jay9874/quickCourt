@@ -28,7 +28,6 @@ export default function LoginPage() {
         e.preventDefault();
 
         const { email, password } = formData;
-
         if (!email) return toast.error('Email is required');
         if (!password) return toast.error('Password is required');
 
@@ -37,16 +36,18 @@ export default function LoginPage() {
 
             await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/auth/login`, {
                 email, password
-            }, {
-                withCredentials: true
-            });
+            }, { withCredentials: true });
 
             toast.success('Login successful!');
-            await fetchUser();
-            navigate('/');
+
+            const fetchedUser = await fetchUser();
+
+            if (fetchedUser?.role === 'player') navigate('/');
+            else if (fetchedUser?.role === 'facility') navigate('/facility');
+            else if (fetchedUser?.role === 'admin') navigate('/admin');
+            else navigate('/');
         }
         catch (error) {
-            console.log(error)
             toast.error(error.response?.data?.message || 'An error occurred');
         }
         finally {

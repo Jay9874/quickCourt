@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import useAuthStore from '../store/authStore'
 import { useLogout } from '../hooks/useLogout'
 
@@ -10,13 +10,21 @@ export default function Navbar() {
   return (
     <div className='sticky top-0 border-b-1 border-gray-300 bg-white'>
       <ul className='px-4 flex items-center justify-between'>
-        <NavLink to='' className='py-1'>
-          <img
-            src='/logo.png'
-            alt=''
-            className='size-[50px] object-cover'
-          />
-        </NavLink>
+        <div className='flex items-center'>
+          <NavLink to='' className='py-1'>
+            <img
+              src='/logo.png'
+              alt=''
+              className='size-[50px] object-cover'
+            />
+          </NavLink>
+          {user.role !== 'player' && (
+            <>
+              <div className='mr-2 h-[25px] border-l border-gray-200' />
+              <p className='uppercase text-sm font-semibold'>{user.role}</p>
+            </>
+          )}
+        </div>
 
         <NavLink
           to='venues'
@@ -33,6 +41,14 @@ export default function Navbar() {
         </NavLink>
 
         <div className='flex items-center gap-4'>
+          {user.role !== 'player' && (
+            <Link
+              to={`/${user.role}`}
+              className='py-1 px-2 rounded-lg font-light border bg-blue-50 border-blue-50 hover:bg-blue-200 text-blue-500'
+            >
+              Dashboard
+            </Link>
+          )}
           <div className='size-[34px] rounded-full bg-blue-50 hover:bg-blue-200 border border-blue-500 overflow-hidden'>
             <img
               src={user.avatar || '/user.png'}

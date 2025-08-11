@@ -13,7 +13,7 @@ import Venues from './pages/Venues';
 import VenueDetail from './pages/VenueDetail';
 import ProfilePage from './pages/common/Profile-Page';
 import PlayerTestPage from './pages/Player/PlayerTest';
-import FacilityTestPage from './pages/Facility/FacilityTest';
+import FacilityDashboard from './pages/Facility/Dashboard';
 import AdminTestPage from './pages/Admin/AdminTest';
 
 function App() {
@@ -30,14 +30,26 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/venues' element={<Venues />} />
           <Route path='/venues/:id' element={<VenueDetail />} />
+          <Route path='/profile' element={<ProfilePage />} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='/signup' element={<SignupPage />} />
           <Route path='/verify' element={<VerificationPage />} />
           <Route path='/forgot' element={<ForgotPasswordPage />} />
-          <Route path='/venues' element={<Venues/>}/>
-          <Route path='/venues/:id' element={<VenueDetail />} />
-          <Route path='/profile' element={<ProfilePage />} />
-          
+          <Route path='/reset/:token' element={<ResetPasswordPage />} />
+        </Route>
+
+        <Route element={<ProtectedRoute allowedRoles={['player']} />}>
+          <Route path='/player' element={<PlayerTestPage />} />
+        </Route>
+
+        <Route element={<ProtectedRoute allowedRoles={['facility']} />}>
+          <Route path='/facility'>
+            <Route index element={<FacilityDashboard />} />
+          </Route>
+        </Route>
+
+        <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
+          <Route path='/admin' element={<AdminTestPage />} />
         </Route>
 
         <Route path='*' element={<>Not Found</>} />
