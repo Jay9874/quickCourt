@@ -135,7 +135,7 @@ export default function AddVenue() {
             );
 
             toast.success('Venue added successfully!');
-            navigate('/');
+            navigate('/facility');
         }
         catch (error) {
             toast.error(error.response?.data?.message || 'Failed to add venue');
@@ -159,7 +159,7 @@ export default function AddVenue() {
                             onChange={handleImageChange}
                             className='block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4
                                        file:rounded-full file:border-0 file:text-sm file:font-semibold
-                                       file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer'
+                                       file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100'
                         />
                         <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 mt-3'>
                             {images.map((img, i) => (
@@ -273,8 +273,8 @@ export default function AddVenue() {
                         type='submit'
                         disabled={isLoading}
                         className={`w-full py-2 px-4 text-white rounded-md transition duration-200 ${isLoading
-                            ? 'bg-gray-300 cursor-not-allowed'
-                            : 'bg-blue-600 hover:bg-blue-700 cursor-pointer'
+                            ? 'bg-gray-300 !cursor-not-allowed'
+                            : 'bg-blue-600 hover:bg-blue-700'
                             }`}
                     >
                         {isLoading ? 'Adding Venue...' : 'Add Venue'}

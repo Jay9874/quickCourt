@@ -33,7 +33,7 @@ export default function Navbar() {
               isActive
                 ? 'text-white bg-amber-600 hover:bg-amber-700'
                 : 'hover:bg-gray-200',
-              'rounded-lg py-1 px-4 cursor-pointer'
+              'rounded-lg py-1 px-4'
             ].join(' ')
           }
         >
@@ -49,7 +49,7 @@ export default function Navbar() {
                   isActive
                     ? 'bg-blue-500 border-blue-500 text-white'
                     : 'bg-blue-50 border-blue-50 hover:bg-blue-200 text-blue-500',
-                  'border rounded-lg py-1 px-4 cursor-pointer'
+                  'border rounded-lg py-1 px-4'
                 ].join(' ')
               }
             >
@@ -66,7 +66,7 @@ export default function Navbar() {
           <button
             disabled={isLoading}
             onClick={handleLogout}
-            className={`py-1 px-2 rounded-lg border font-light ${isLoading ? 'bg-gray-50 hover:bg-gray-200 text-gray-500 !cursor-not-allowed' : 'bg-red-50 hover:bg-red-200 text-red-500 cursor-pointer'}`}
+            className={`py-1 px-2 rounded-lg border font-light ${isLoading ? 'bg-gray-50 hover:bg-gray-200 text-gray-500 !cursor-not-allowed' : 'bg-red-50 hover:bg-red-200 text-red-500'}`}
           >
             Logout
           </button>

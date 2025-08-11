@@ -96,7 +96,7 @@ export default function SignupPage() {
                                    file:rounded-full file:border-0
                                    file:text-sm file:font-semibold
                                    file:bg-blue-50 file:text-blue-700
-                                   hover:file:bg-blue-100 cursor-pointer'
+                                   hover:file:bg-blue-100'
                         />
                         {avatarPreview && (
                             <img
@@ -163,7 +163,7 @@ export default function SignupPage() {
                         type='submit'
                         className={`w-full py-2 px-4 text-white rounded-md transition duration-200 ${isLoading
                             ? 'bg-gray-300 !cursor-not-allowed'
-                            : 'bg-blue-600 hover:bg-blue-700 cursor-pointer'
+                            : 'bg-blue-600 hover:bg-blue-700'
                             }`}
                     >
                         {isLoading ? 'Signing up...' : 'Sign Up'}

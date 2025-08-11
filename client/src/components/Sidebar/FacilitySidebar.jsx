@@ -11,7 +11,7 @@ const FacilitySidebar = ({ onLinkClick }) => {
             isActive
               ? 'text-white bg-gray-600 hover:bg-gray-700'
               : 'bg-white hover:bg-gray-200',
-            'w-full block rounded-3xl py-1 px-4 cursor-pointer'
+            'w-full block rounded-3xl py-1 px-4'
           ].join(' ')
         }
       >

@@ -244,7 +244,7 @@ const VenueDetail = () => {
             <div className='basis-1/3 flex flex-col gap-4'>
               {/* button */}
               <div>
-                <button className='border hover:cursor-pointer border-gray-400 rounded-md p-2 text-white bg-green-800'>
+                <button className='border hover:border-gray-400 rounded-md p-2 text-white bg-green-800'>
                   Book this venue
                 </button>
               </div>

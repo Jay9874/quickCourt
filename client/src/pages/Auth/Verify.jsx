@@ -86,7 +86,7 @@ export default function VerificationPage() {
                     <button
                         className={`w-full py-2 px-4 text-white rounded-md transition duration-200 ${isLoading
                             ? 'bg-gray-300 !cursor-not-allowed'
-                            : 'bg-blue-600 hover:bg-blue-700 cursor-pointer'
+                            : 'bg-blue-600 hover:bg-blue-700'
                             }`}
                     >
                         {isLoading ? 'Verifying...' : 'Verify OTP'}

@@ -1,5 +1,6 @@
 const ImageKit = require('imagekit');
 const Venue = require('../models/Venue');
+const citiesData = require('../data/citiesData');
 
 const imagekit = new ImageKit({
     publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
@@ -11,26 +12,26 @@ exports.createVenue = async (req, res) => {
     try {
         const { name, city, address, description, sports, amenities } = req.body;
 
-        if (name) {
+        if (!name) {
             return res.status(400).json({ message: 'Name is required' });
         }
-        if (city || !citiesData.includes(city)) {
+        if (!city || !citiesData.includes(city)) {
             return res.status(400).json({ message: 'Valid City is required' });
         }
-        if (address) {
+        if (!address) {
             return res.status(400).json({ message: 'Address is required' });
         }
-        if (description) {
+        if (!description) {
             return res.status(400).json({ message: 'Description is required' });
-        }
-        if (images.length === 0) {
-            return res.status(400).json({ message: 'Please upload at least one image' });
         }
         if (sports.length === 0) {
             return res.status(400).json({ message: 'Please add at least one sport' });
         }
         if (amenities.length === 0) {
             return res.status(400).json({ message: 'Please add at least one amenity' });
+        }
+        if (!req.files || req.files.length === 0) {
+            return res.status(400).json({ message: 'Please add at least one venue image' });
         }
 
         const uploadedImages = [];
@@ -48,7 +49,8 @@ exports.createVenue = async (req, res) => {
 
         const newVenue = new Venue({
             name,
-            location,
+            city,
+            address,
             description,
             sports: sportsArray,
             amenities: amenitiesArray,
