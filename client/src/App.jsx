@@ -15,14 +15,14 @@ import Venues from './pages/Venues'
 import VenueDetail from './pages/VenueDetail'
 import CourtBooking from './components/CourtBooking'
 import ProfilePage from './pages/Profile/Profile'
+import EditProfile from './pages/Profile/EditProfile'
+import ProfileBooking from './components/ProfileBooking'
 import PlayerTestPage from './pages/Player/PlayerTest'
 import FacilityDashboard from './pages/Facility/Dashboard'
 import AllVenues from './pages/Facility/AllVenues'
 import AddVenue from './pages/Facility/AddVenue'
 import Court from './pages/Facility/Court'
-import AdminTestPage from './pages/Admin/AdminTest'
-import ProfileBooking from './components/ProfileBooking'
-import EditProfile from './pages/Profile/EditProfile'
+import AdminDashboard from './pages/Admin/Dashboard'
 
 function App() {
   const { fetchUser } = useAuthFetch()
@@ -67,7 +67,7 @@ function App() {
 
         <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
           <Route path='/admin' element={<Layout Sidebar={AdminSidebar} />}>
-            <Route index element={<AdminTestPage />} />
+            <Route index element={<AdminDashboard />} />
           </Route>
         </Route>
 

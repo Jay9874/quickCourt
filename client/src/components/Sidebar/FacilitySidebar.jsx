@@ -1,8 +1,17 @@
-import { NavLink } from 'react-router-dom';
+import { useLocation, Link, NavLink } from 'react-router-dom';
 
 const FacilitySidebar = ({ onLinkClick }) => {
+  const location = useLocation();
+
   return (
     <div className='space-y-4 p-4'>
+      <Link
+        to='/facility'
+        onClick={onLinkClick}
+        className={`${location.pathname === '/facility' ? 'text-white bg-gray-600 hover:bg-gray-700' : 'bg-white hover:bg-gray-200'} w-full block rounded-3xl py-1 px-4`}
+      >
+        Dashboard
+      </Link>
       <NavLink
         to='all-venues'
         onClick={onLinkClick}
