@@ -1,11 +1,12 @@
-import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { useLocation, Navigate, Outlet } from 'react-router-dom';
 import useAuthStore from './store/authStore';
 import Loading from './components/Loading';
 import Navbar from './components/Navbar';
 
-export default function ProtectedRoute() {
-    const { isAuthenticated, isAuthenticating } = useAuthStore();
+export default function ProtectedRoute({ allowedRoles }) {
     const location = useLocation();
+
+    const { isAuthenticated, isAuthenticating, user } = useAuthStore();
 
     if (isAuthenticating) {
         return <Loading size={18} className='my-2 mx-auto' />;
@@ -24,6 +25,12 @@ export default function ProtectedRoute() {
 
     if (!isAuthenticated && isAuthPage) {
         return <Outlet />;
+    }
+
+    if (allowedRoles && allowedRoles.length > 0) {
+        if (!allowedRoles.includes(user?.role)) {
+            return <Navigate to='/' replace />;
+        }
     }
 
     return (
