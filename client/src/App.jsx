@@ -41,7 +41,7 @@ function App() {
           <Route path='/booking/:venueId' element={<CourtBooking />} />
           <Route path='/profile' element={<ProfilePage />}>
             <Route path='edit' element={<EditProfile />} />
-            <Route path='bookings' element={<div></div>} />
+            <Route path='bookings' element={<ProfileBooking />} />
           </Route>
           <Route path='/login' element={<LoginPage />} />
           <Route path='/signup' element={<SignupPage />} />
