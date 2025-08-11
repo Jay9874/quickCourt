@@ -8,7 +8,7 @@ export default function Navbar() {
   const { isLoading, handleLogout } = useLogout();
 
   return (
-    <div className='sticky top-0 border-b-1 border-gray-300 bg-white'>
+    <div className='sticky z-10 top-0 border-b-1 border-gray-300 bg-white'>
       <ul className='px-4 flex items-center justify-between'>
         <div className='flex items-center'>
           <NavLink to='' className='py-1'>

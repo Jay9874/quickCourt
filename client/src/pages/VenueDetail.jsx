@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import './VenueDetail.css'
 import Footer from '../components/Footer'
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 
 const VenueDetail = () => {
   const { id } = useParams()
@@ -223,9 +224,24 @@ const VenueDetail = () => {
             </div>
           </div> */}
 
-          <div className='min-h-[50vh] flex'>
-            <div className='w-[90%]'>img container</div>
-            <div className='flex flex-col gap-4'>
+          <div className='min-h-[50vh] w-full flex gap-2'>
+            <div className='basis-2/3 relative border border-gray-400 rounded-md'>
+              {/* The image slider */}
+              <button className='border bg-gray-50 absolute border-gray-300 p-4 rounded-full top-[50%] left-[1rem]'>
+                <FaChevronLeft />
+              </button>
+              <button className='border bg-gray-50 absolute top-[50%] right-[1rem] border-gray-300 p-4 rounded-full'>
+                <FaChevronRight />
+              </button>
+              <div className='absolute top-0 left-0 w-full h-full z-[-1]'>
+                <img
+                  className='h-full w-full rounded-md'
+                  src={venue.photos[activeImageIndex]}
+                  alt='The venue views'
+                />
+              </div>
+            </div>
+            <div className='basis-1/3 flex flex-col gap-4'>
               {/* button */}
               <div>
                 <button className='border hover:cursor-pointer border-gray-400 rounded-md p-2 text-white bg-green-800'>

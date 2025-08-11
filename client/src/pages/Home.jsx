@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import VenueCard from '../components/VenueCard'
 import Footer from '../components/Footer'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useSearchParams } from 'react-router-dom'
 import { FaChevronRight, FaChevronLeft } from 'react-icons/fa'
 
 export default function Home () {
   // Mock data - replace with actual API call
+  // keeping it to show the default result
+  const [defaultCity, setDefaultCity] = useState('Ahmadabad')
+
   const mockVenues = [
     {
       id: 1,
@@ -110,13 +113,20 @@ export default function Home () {
 
   return (
     <div>
-      <div className='flex min-h-[50vh]'>
+      <div className='relative flex h-[50vh]'>
         {/* the bg container */}
-        <div></div>
+        <div className='absolute top-0 w-full h-full'>
+          <img
+            className='object-cover'
+            style={{ height: '100%', width: '100%' }}
+            src='/homepage_img.webp'
+            alt='the home background image of stadium'
+          />
+        </div>
         {/* the left container*/}
-        <div className='flex justify-center flex-col p-4'>
+        <div className='h-full w-[75%] text-white bg-gradient-to-r from-black to-black/0 absolute top-0 left-0 flex justify-center flex-col p-4'>
           <form>
-            <div className='flex p-1 border-2 rounded-md w-fit'>
+            <div className='flex justify-center items-center p-1 border-2 rounded-md w-fit'>
               <div style={{ height: '24px', width: '24px' }}>
                 <svg
                   viewBox='0 0 24 24'
@@ -150,16 +160,18 @@ export default function Home () {
                 </svg>
               </div>
               <input
-                className=''
+                className='outline-none border-none px-4 py-1 text-lg'
                 type='text'
                 name='city'
                 placeholder='Ahmedabad'
               />
             </div>
           </form>
-          <div className='mt-2'>
-            <h2>Find Players and Venue Nearby</h2>
-            <p>
+          <div className='mt-4'>
+            <h1 className='text-2xl font-bold'>
+              Find Players and Venue Nearby
+            </h1>
+            <p className='mt-2'>
               Seamlessly explore special venue to play with
               <br />
               sports enthuasts just like you!
