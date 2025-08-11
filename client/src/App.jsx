@@ -13,12 +13,13 @@ import ForgotPasswordPage from './pages/Auth/Forgot'
 import ResetPasswordPage from './pages/Auth/Reset'
 import Venues from './pages/Venues'
 import VenueDetail from './pages/VenueDetail'
-import ProfilePage from './pages/Profile'
+import ProfilePage from './pages/Profile/Profile'
 import PlayerTestPage from './pages/Player/PlayerTest'
 import FacilityDashboard from './pages/Facility/Dashboard'
 import AddVenue from './pages/Facility/AddVenue'
 import AdminTestPage from './pages/Admin/AdminTest'
 import ProfileBooking from './components/ProfileBooking'
+import EditProfile from './pages/Profile/EditProfile'
 
 function App () {
   const { fetchUser } = useAuthFetch()
@@ -35,6 +36,7 @@ function App () {
           <Route path='/venues' element={<Venues />} />
           <Route path='/venues/:id' element={<VenueDetail />} />
           <Route path='/profile' element={<ProfilePage />}>
+            <Route path='edit' element={<EditProfile />} />
             <Route path='bookings' element={<ProfileBooking />} />
           </Route>
           <Route path='/login' element={<LoginPage />} />

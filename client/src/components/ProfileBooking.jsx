@@ -1,5 +1,4 @@
 import React from 'react'
-import { useBookings } from '../hooks/useBookings'
 
 export default function ProfileBooking () {
   const bookings = [
@@ -47,7 +46,7 @@ export default function ProfileBooking () {
   }
 
   return (
-    <div className='bg-gray-900 min-h-screen p-8 text-white font-sans'>
+    <div className='min-h-screen border border-gray-400 p-8 text-white font-sans'>
       <h2 className='text-3xl font-bold mb-6'>My Bookings</h2>
 
       {/* Container for Confirmed and other non-cancelled bookings */}

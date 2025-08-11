@@ -51,7 +51,7 @@ export default function Navbar () {
               Dashboard
             </NavLink>
           )}
-          <Link to={'profile'}>
+          <Link to={'profile/edit'}>
             <div className='size-[34px] rounded-full bg-blue-50 hover:bg-blue-200 border border-blue-500 overflow-hidden'>
               <img
                 src={user.avatar || '/user.png'}
