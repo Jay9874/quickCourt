@@ -8,6 +8,17 @@ const imagekit = new ImageKit({
     urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT,
 });
 
+exports.listVenues = async (req, res) => {
+    try {
+        const venues = await Venue.find({ createdBy: req.user._id });
+
+        return res.status(200).json(venues);
+    }
+    catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+}
+
 exports.createVenue = async (req, res) => {
     try {
         const { name, city, address, description, sports, amenities } = req.body;

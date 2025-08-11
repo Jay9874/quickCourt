@@ -88,25 +88,25 @@ export default function AddVenue() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!formData.name.trim()) {
-            return toast.error('Name is required');
-        }
-        if (!formData.city || !citiesData.includes(formData.city)) {
-            return toast.error('Please select a valid city');
-        }
-        if (!formData.address.trim()) {
-            return toast.error('Address is required');
-        }
-        if (!formData.description.trim()) {
-            return toast.error('Description is required');
-        }
         if (images.length === 0) {
             return toast.error('Please upload at least one image');
         }
-        if (formData.sports.length === 0) {
+        else if (!formData.name.trim()) {
+            return toast.error('Name is required');
+        }
+        else if (!formData.city || !citiesData.includes(formData.city)) {
+            return toast.error('Please select a valid city');
+        }
+        else if (!formData.address.trim()) {
+            return toast.error('Address is required');
+        }
+        else if (!formData.description.trim()) {
+            return toast.error('Description is required');
+        }
+        else if (formData.sports.length === 0) {
             return toast.error('Please add at least one sport');
         }
-        if (formData.amenities.length === 0) {
+        else if (formData.amenities.length === 0) {
             return toast.error('Please add at least one amenity');
         }
 
@@ -135,7 +135,7 @@ export default function AddVenue() {
             );
 
             toast.success('Venue added successfully!');
-            navigate('/facility');
+            navigate('/facility/all-venues');
         }
         catch (error) {
             toast.error(error.response?.data?.message || 'Failed to add venue');
@@ -193,18 +193,21 @@ export default function AddVenue() {
                     </div>
 
                     <div>
-                        <label className='block mb-1 font-medium'>City</label>
-                        <select
+                        <label className='block mb-1 font-medium' htmlFor='city'>City</label>
+                        <input
+                            list='cities-list'
+                            id='city'
                             name='city'
                             value={formData.city}
                             onChange={handleChange}
-                            className='w-full px-3 py-2.5 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
-                        >
-                            <option disabled>Select Venue City</option>
+                            placeholder='Select Venue City'
+                            className='w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
+                        />
+                        <datalist id='cities-list'>
                             {citiesData.map(item => (
-                                <option key={item} value={item}>{item}</option>
+                                <option key={item} value={item} />
                             ))}
-                        </select>
+                        </datalist>
                     </div>
 
                     <div>

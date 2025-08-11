@@ -1,5 +1,4 @@
 import { create } from 'zustand'
-import { toast } from 'sonner'
 import axios from 'axios'
 
 const useVenueStore = create((set, get) => ({
@@ -15,9 +14,6 @@ const useVenueStore = create((set, get) => ({
         }
       )
       set({ venues: res.data })
-    }
-    catch {
-      toast.error('The venues could not be found in the city.')
     }
     finally {
       set({ loading: false })

@@ -7,10 +7,10 @@ exports.fetchVenuesByCity = async (req, res) => {
   }
 
   try {
-    const venues = await Venue.find({ city });
+    const venues = await Venue.find({ city: { $regex: new RegExp(`^${city}`, 'i') } });
 
-    if (!venues) {
-      return res.status(404).json({ error: `Venues in ${city} could not be found` });
+    if (!venues || venues.length === 0) {
+      return res.status(404).json({ error: `Venues in cities starting with "${city}" could not be found` });
     }
 
     return res.status(200).json(venues);

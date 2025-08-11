@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import VenueCard from '../components/VenueCard'
-import Footer from '../components/Footer'
-import { Link, NavLink, useSearchParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { FaChevronRight, FaChevronLeft } from 'react-icons/fa'
 import useVenueStore from '../store/venueStore'
+import VenueCard from '../components/VenueCard'
+import Footer from '../components/Footer'
+import citiesData from '../data/citiesData.json'
 
-export default function Home () {
+export default function Home() {
   // Mock data - replace with actual API call
   // keeping it to show the default result
   const [defaultCity, setDefaultCity] = useState('Ahmedabad')
@@ -167,13 +168,19 @@ export default function Home () {
                 </svg>
               </div>
               <input
-                className='outline-none border-none px-4 py-1 text-lg'
-                type='text'
+                list='cities-list'
+                id='city'
                 name='city'
                 value={defaultCity}
                 onChange={e => setDefaultCity(e.target.value)}
-                placeholder='Ahmedabad'
+                placeholder='Select Venue City'
+                className='outline-none border-none px-4 py-1 text-lg'
               />
+              <datalist id='cities-list'>
+                {citiesData.map(item => (
+                  <option key={item} value={item} />
+                ))}
+              </datalist>
             </div>
           </form>
           <div className='mt-4'>

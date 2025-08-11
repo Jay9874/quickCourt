@@ -16,6 +16,7 @@ import VenueDetail from './pages/VenueDetail'
 import ProfilePage from './pages/Profile/Profile'
 import PlayerTestPage from './pages/Player/PlayerTest'
 import FacilityDashboard from './pages/Facility/Dashboard'
+import AllVenues from './pages/Facility/AllVenues'
 import AddVenue from './pages/Facility/AddVenue'
 import AdminTestPage from './pages/Admin/AdminTest'
 import ProfileBooking from './components/ProfileBooking'
@@ -55,6 +56,7 @@ function App () {
             element={<Layout Sidebar={FacilitySidebar} />}
           >
             <Route index element={<FacilityDashboard />} />
+            <Route path='all-venues' element={<AllVenues />} />
             <Route path='add-venue' element={<AddVenue />} />
           </Route>
         </Route>

@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const { createVenue } = require('../controllers/facilityControllers');
+const {
+    listVenues,
+    createVenue
+} = require('../controllers/facilityControllers');
 
 const storage = multer.memoryStorage();
 const upload = multer({
@@ -16,6 +19,7 @@ const upload = multer({
     }
 });
 
+router.get('/venues', listVenues);
 router.post('/add-venue', upload.array('images', 5), createVenue);
 
 module.exports = router;
