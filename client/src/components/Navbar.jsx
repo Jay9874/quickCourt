@@ -3,26 +3,26 @@ import { Link, NavLink } from 'react-router-dom'
 import useAuthStore from '../store/authStore'
 import { useLogout } from '../hooks/useLogout'
 
-export default function Navbar() {
-  const { user } = useAuthStore();
+export default function Navbar () {
+  const { user } = useAuthStore()
 
-  const { isLoading, handleLogout } = useLogout();
+  const { isLoading, handleLogout } = useLogout()
 
-  const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false)
 
   const openModal = () => {
-    document.body.style.overflow = 'hidden';
-    setShowLogoutModal(true);
+    document.body.style.overflow = 'hidden'
+    setShowLogoutModal(true)
   }
 
   const closeModal = () => {
-    document.body.style.overflow = 'auto';
-    setShowLogoutModal(false);
+    document.body.style.overflow = 'auto'
+    setShowLogoutModal(false)
   }
 
   const confirmLogout = () => {
-    handleLogout();
-    closeModal();
+    handleLogout()
+    closeModal()
   }
 
   return (
@@ -31,7 +31,11 @@ export default function Navbar() {
         <ul className='px-4 flex items-center justify-between'>
           <div className='flex items-center'>
             <NavLink to='' className='py-1'>
-              <img src='/logo.png' alt='' className='size-[50px] object-cover' />
+              <img
+                src='/logo.png'
+                alt=''
+                className='size-[50px] object-cover'
+              />
             </NavLink>
             {user.role !== 'player' && (
               <>
@@ -40,54 +44,53 @@ export default function Navbar() {
               </>
             )}
           </div>
-
           <NavLink
-            to='venues'
+            to={'venues'}
             className={({ isActive }) =>
               [
                 isActive
-                  ? 'text-white bg-amber-600 hover:bg-amber-700'
-                  : 'hover:bg-gray-200',
-                'rounded-lg py-1 px-4'
+                  ? 'bg-blue-500 border-blue-500 text-white'
+                  : 'bg-blue-50 border-blue-50 hover:bg-blue-200 text-blue-500',
+                'border rounded-lg py-1 px-4'
               ].join(' ')
             }
           >
             Venue
           </NavLink>
-
-        <div className='flex items-center gap-4'>
-          {user.role !== 'player' && (
-            <NavLink
-              to={`/${user.role}`}
-              className={({ isActive }) =>
-                [
-                  isActive
-                    ? 'bg-blue-500 border-blue-500 text-white'
-                    : 'bg-blue-50 border-blue-50 hover:bg-blue-200 text-blue-500',
-                  'border rounded-lg py-1 px-4'
-                ].join(' ')
-              }
-            >
-              Dashboard
-            </NavLink>
-          )}
-          <Link to={'profile/edit'}>
-            <div className='size-[34px] rounded-full bg-blue-50 hover:bg-blue-200 border border-blue-500 overflow-hidden'>
-              <img
-                src={user.avatar || '/user.png'}
-                alt=''
-                className='size-full object-cover'
-              />
-            </div>
-          </Link>
+          <div className='flex items-center gap-4'>
+            {user.role !== 'player' && (
+              <NavLink
+                to={`/${user.role}`}
+                className={({ isActive }) =>
+                  [
+                    isActive
+                      ? 'bg-blue-500 border-blue-500 text-white'
+                      : 'bg-blue-50 border-blue-50 hover:bg-blue-200 text-blue-500',
+                    'border rounded-lg py-1 px-4'
+                  ].join(' ')
+                }
+              >
+                Dashboard
+              </NavLink>
+            )}
+            <Link to={'profile/edit'}>
+              <div className='size-[34px] rounded-full bg-blue-50 hover:bg-blue-200 border border-blue-500 overflow-hidden'>
+                <img
+                  src={user.avatar || '/user.png'}
+                  alt=''
+                  className='size-full object-cover'
+                />
+              </div>
+            </Link>
 
             <button
               disabled={isLoading}
               onClick={openModal}
-              className={`py-1 px-2 rounded-lg border font-light ${isLoading
-                ? 'bg-gray-50 hover:bg-gray-200 text-gray-500 !cursor-not-allowed'
-                : 'bg-red-50 hover:bg-red-200 text-red-500'
-                }`}
+              className={`py-1 px-2 rounded-lg border font-light ${
+                isLoading
+                  ? 'bg-gray-50 hover:bg-gray-200 text-gray-500 !cursor-not-allowed'
+                  : 'bg-red-50 hover:bg-red-200 text-red-500'
+              }`}
             >
               Logout
             </button>
@@ -102,7 +105,7 @@ export default function Navbar() {
         >
           <div
             className='bg-white rounded-lg p-6 w-80 max-w-full'
-            onClick={(e) => e.stopPropagation()}
+            onClick={e => e.stopPropagation()}
           >
             <h2 className='text-lg font-semibold mb-4'>Confirm Logout</h2>
             <p className='mb-6'>Are you sure you want to logout?</p>
@@ -116,10 +119,11 @@ export default function Navbar() {
               <button
                 onClick={confirmLogout}
                 disabled={isLoading}
-                className={`px-4 py-2 rounded ${isLoading
-                  ? 'bg-gray-50 text-gray-500 !cursor-not-allowed'
-                  : 'bg-red-500 text-white hover:bg-red-600'
-                  }`}
+                className={`px-4 py-2 rounded ${
+                  isLoading
+                    ? 'bg-gray-50 text-gray-500 !cursor-not-allowed'
+                    : 'bg-red-500 text-white hover:bg-red-600'
+                }`}
               >
                 {isLoading ? 'Logging out...' : 'Logout'}
               </button>
