@@ -48,7 +48,28 @@ export default function Home () {
       image:
         'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop'
     },
-    
+    {
+      id: 5,
+      name: 'Metro Basketball Arena',
+      sports: ['Basketball'],
+      pricePerHour: 1800,
+      location: 'Kurla West, Mumbai',
+      rating: 4.6,
+      venueType: 'Indoor',
+      image:
+        'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop'
+    },
+    {
+      id: 6,
+      name: 'Metro Basketball Arena',
+      sports: ['Basketball'],
+      pricePerHour: 1800,
+      location: 'Kurla West, Mumbai',
+      rating: 4.6,
+      venueType: 'Indoor',
+      image:
+        'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop'
+    }
   ]
 
   return (
@@ -112,11 +133,13 @@ export default function Home () {
       </div>
 
       {/* the loaded venues */}
-      <div className='flex overflow-scroll'>
+      <div className='flex overflow-scroll gap-24'>
         {mockVenues.map(venue => (
           <VenueCard key={venue.id} venue={venue} />
         ))}
       </div>
+
+      {/* The footer page */}
     </div>
   )
 }

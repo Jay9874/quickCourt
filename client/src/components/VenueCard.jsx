@@ -14,9 +14,14 @@ const VenueCard = ({ venue }) => {
   ]
 
   return (
-    <div className='border border-1 p-2 rounded-md'>
+    <div className='w-48 shrink-0 border border-1 p-2 rounded-md'>
       {/* Image container */}
-      <div></div>
+      <div>
+        <img
+          src={`https://picsum.photos/seed/${venue.id}/200/150`}
+          alt='venue view'
+        />
+      </div>
       {/* info container */}
       <div>
         <div>
