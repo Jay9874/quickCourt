@@ -48,7 +48,7 @@ export default function ProfileBooking () {
 
 
   return (
-    <div className='min-h-screen rounded-md border border-gray-400 p-8 shadow-lg'>
+    <div className='min-h-screen flex-1 rounded-md border border-gray-400 p-8 shadow-lg'>
       {/* <h2 className='text-3xl font-bold mb-6'>My Bookings</h2> */}
       <div className='inline-flex border border-gray-400 rounded-full p-1'>
         <button
