@@ -1,8 +1,7 @@
 const Venue = require('../models/Venue')
 
 exports.fetchVenuesByCity = async (req, res) => {
-  const {city} = req.query
-  console.log('all the queries are: ', req.query)
+  const { city} = req.query
 
   if (!city) {
     return res.status(400).json({ message: 'City is required' })
@@ -68,9 +67,13 @@ exports.fetchVenuesByParams = async (req, res) => {
 
     // Price range filter
     if (selectedPrice) {
-      // Assuming selectedPrice is a string like '0-500'
-      const [minPrice, maxPrice] = selectedPrice.split('-').map(Number)
-      filter.price = { $gte: minPrice, $lte: maxPrice }
+      if (selectedPrice === 'low') {
+        filter.price = { $gte: 0, $lte: 1500 }
+      } else if (selectedPrice === 'medium') {
+        filter.price = { $gte: 1501, $lte: 2500 }
+      } else {
+        filter.price = { $gte: 2501 }
+      }
     }
 
     // Rating filter

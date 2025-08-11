@@ -46,6 +46,7 @@ export const Venues = () => {
       page: currentPage,
       venuesPerPage
     })
+    console.log('filter: ', filters)
   }, [filters, currentPage])
 
   return (

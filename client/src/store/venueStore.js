@@ -19,6 +19,9 @@ const useVenueStore = create((set, get) => ({
       const { venues, totalPages } = res.data
       set({ venues: venues, totalPages: totalPages })
       return { venues, totalPages }
+    } catch (err) {
+      console.log('err at loading venues: ', err)
+      set({ venues: [], totalPages: 0 })
     } finally {
       set({ loading: false })
     }
@@ -42,7 +45,11 @@ const useVenueStore = create((set, get) => ({
       )
       const { venues, totalPages } = res.data
       set({ venues: venues, totalPages: totalPages })
+      console.log('the res: ', res)
       return { venues, totalPages }
+    } catch (err) {
+      console.log('err: ', err)
+      set({ venues: [], totalPages: 0 })
     } finally {
       set({ loading: false })
     }
