@@ -16,6 +16,7 @@ export default function AddVenue() {
     });
     const [sportsInput, setSportsInput] = useState('');
     const [amenitiesInput, setAmenitiesInput] = useState('');
+    const [isLoading, setLoading] = useState(false);
 
     const handleImageChange = (e) => {
         const files = Array.from(e.target.files);
@@ -93,6 +94,8 @@ export default function AddVenue() {
         }
 
         try {
+            setLoading(true);
+
             const data = new FormData();
 
             data.append('name', formData.name);
@@ -114,10 +117,13 @@ export default function AddVenue() {
             );
 
             toast.success('Venue added successfully!');
-            navigate('/facility');
+            navigate('');
         }
         catch (error) {
             toast.error(error.response?.data?.message || 'Failed to add venue');
+        }
+        finally {
+            setLoading(false);
         }
     };
 
@@ -187,7 +193,7 @@ export default function AddVenue() {
                             onChange={handleChange}
                             rows='3'
                             className='w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
-                        ></textarea>
+                        />
                     </div>
 
                     <div>
@@ -201,12 +207,12 @@ export default function AddVenue() {
                             ))}
                         </div>
                         <input
-                            type="text"
+                            type='text'
                             value={sportsInput}
                             onChange={(e) => setSportsInput(e.target.value)}
                             onKeyDown={(e) => handleTagInput(e, 'sports')}
-                            placeholder="Type and press Enter"
-                            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            placeholder='Type and press Enter'
+                            className='w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
                         />
                     </div>
 
@@ -221,20 +227,24 @@ export default function AddVenue() {
                             ))}
                         </div>
                         <input
-                            type="text"
+                            type='text'
                             value={amenitiesInput}
                             onChange={(e) => setAmenitiesInput(e.target.value)}
                             onKeyDown={(e) => handleTagInput(e, 'amenities')}
-                            placeholder="Type and press Enter"
-                            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            placeholder='Type and press Enter'
+                            className='w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
                         />
                     </div>
 
                     <button
                         type='submit'
-                        className='w-full py-2 px-4 text-white rounded-md transition duration-200 bg-blue-600 hover:bg-blue-700 cursor-pointer'
+                        disabled={isLoading}
+                        className={`w-full py-2 px-4 text-white rounded-md transition duration-200 ${isLoading
+                            ? 'bg-gray-300 cursor-not-allowed'
+                            : 'bg-blue-600 hover:bg-blue-700 cursor-pointer'
+                            }`}
                     >
-                        Add Venue
+                        {isLoading ? 'Adding Venue...' : 'Add Venue'}
                     </button>
                 </form>
             </div>
