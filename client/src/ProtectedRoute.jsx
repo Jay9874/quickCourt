@@ -11,7 +11,7 @@ export default function ProtectedRoute() {
         return <Loading size={18} className='my-2 mx-auto' />;
     }
 
-    const authPages = ["/login", "/signup"];
+    const authPages = ["/login", "/signup", "/verify"];
 
     if (isAuthenticated && authPages.includes(location.pathname)) {
         return <Navigate to="/" replace />;

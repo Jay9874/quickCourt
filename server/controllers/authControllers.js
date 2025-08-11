@@ -2,6 +2,8 @@ const ImageKit = require('imagekit');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const otpCache = require("../cache/otpCache")
+const sendMail = require("../utils/mailer");
 
 const imagekit = new ImageKit({
     publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
@@ -18,10 +20,17 @@ exports.login = async (req, res) => {
         const { email, password } = req.body;
 
         const user = await User.findOne({ email });
-        if (!user) return res.status(404).json({ message: 'User not found' });
+        if (!user) {
+            return res.status(400).json({ message: 'Invalid email or password' });
+        }
+        else if (!user.isVerified) {
+            return res.status(403).json({ message: 'Please verify your email before logging in' });
+        }
 
         const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) return res.status(401).json({ message: 'Invalid credentials' });
+        if (!isMatch) {
+            return res.status(400).json({ message: 'Invalid email or password' });
+        }
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
             expiresIn: '1d',
@@ -47,10 +56,10 @@ exports.signup = async (req, res) => {
         let avatarUrl = '';
 
         if (!name) return res.status(400).json({ message: 'Name is required' });
-        else if (!email) return res.status(400).json({ message: 'Email is required' });
-        else if (password.length < 6) return res.status(400).json({ message: 'Minimum password length is 6' });
-        else if (role !== 'player' && role !== 'facility') {
-            return res.status(400).json({ message: 'Role is required' })
+        if (!email) return res.status(400).json({ message: 'Email is required' });
+        if (password.length < 6) return res.status(400).json({ message: 'Minimum password length is 6' });
+        if (role !== 'player' && role !== 'facility') {
+            return res.status(400).json({ message: 'Role is required' });
         }
 
         const existingUser = await User.findOne({ email });
@@ -79,15 +88,56 @@ exports.signup = async (req, res) => {
             password: hashedPassword,
             role,
             avatar: avatarUrl,
+            isVerified: false
         });
 
         await newUser.save();
 
-        res.status(201).json({ message: 'User registered successfully' });
+        const otp = Math.floor(100000 + Math.random() * 900000).toString();
+        otpCache.set(email, otp);
+
+        const mailOptions = {
+            from: `${process.env.EMAIL_USER} <${process.env.EMAIL_ADDRESS}>`,
+            to: email,
+            subject: 'Account Registration OTP',
+            html: `<p>Here's your OTP for QuickCourt: ${otp}</p>`
+        };
+
+        await sendMail(mailOptions)
+            .then(() => {
+                res.status(201).send({ message: 'OTP sent successfully' })
+            })
+            .catch(err => {
+                res.status(400).json({ error: 'Failed to send OTP' });
+            });
     }
     catch (error) {
+        console.log(error)
         res.status(500).json({ message: 'Server error' });
     }
+};
+
+exports.verifyOtp = async (req, res) => {
+    const { email, otp } = req.body;
+    const cachedOtp = otpCache.get(email);
+
+    if (cachedOtp !== otp) {
+        return res.status(400).json({ message: "Invalid OTP" });
+    }
+
+    const user = await User.findOneAndUpdate(
+        { email },
+        { isVerified: true },
+        { new: true }
+    );
+
+    if (!user) {
+        return res.status(404).json({ message: "User not found" });
+    }
+
+    otpCache.del(email);
+
+    res.status(200).json({ message: "Email verified successfully" });
 };
 
 exports.logout = (req, res) => {

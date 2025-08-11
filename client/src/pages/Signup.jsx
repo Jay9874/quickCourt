@@ -69,8 +69,8 @@ export default function SignupPage() {
                 }
             })
 
-            toast.success('Signup successful!');
-            navigate('/login');
+            toast.success('Signup successful! Check your email for OTP.');
+            navigate('/verify', { state: { email } });
         }
         catch (error) {
             toast.error(error.response.data.message || 'An error occurred');

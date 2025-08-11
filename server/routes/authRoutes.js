@@ -6,6 +6,7 @@ const {
     getMe,
     login,
     signup,
+    verifyOtp,
     logout
 } = require('../controllers/authControllers');
 
@@ -15,6 +16,7 @@ const upload = multer({ storage });
 router.get('/me', verifyUser, getMe);
 router.post('/login', login);
 router.post('/signup', upload.single('avatar'), signup);
+router.post('/verify', verifyOtp);
 router.get('/logout', logout);
 
 module.exports = router;

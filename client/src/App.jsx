@@ -5,6 +5,7 @@ import ProtectedRoute from './ProtectedRoute';
 import Home from './pages/Home';
 import LoginPage from './pages/Login';
 import SignupPage from './pages/Signup';
+import VerificationPage from './pages/Verify';
 
 function App() {
   const { fetchUser } = useAuthFetch();
@@ -22,6 +23,7 @@ function App() {
           <Route path="/facility" element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/verify" element={<VerificationPage />} />
         </Route>
         <Route path="*" element={<>Not Found</>} />
       </Routes>
