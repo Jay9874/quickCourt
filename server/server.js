@@ -15,7 +15,9 @@ app.use(cors({
 
 app.use(express.json())
 
+
 app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/bookings', require('./routes/bookingRoutes'));
 
 mongoose.connect(process.env.MONGODB_URI)
     .then(async () => {
