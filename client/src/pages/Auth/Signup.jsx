@@ -1,8 +1,8 @@
-import { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
-import axios from 'axios'
-import { toast } from 'sonner'
-import PasswordInput from '../components/PasswordInput';
+import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
+import { toast } from 'sonner';
+import PasswordInput from '../../components/PasswordInput';
 
 export default function SignupPage() {
     const navigate = useNavigate();
@@ -81,7 +81,7 @@ export default function SignupPage() {
     };
 
     return (
-        <div className="max-w-md mx-auto px-2">
+        <div className='max-w-md mx-auto px-2'>
             <div className='p-6 bg-white rounded-xl shadow-md mt-10'>
                 <h2 className='text-2xl font-semibold mb-6 text-center'>Create an Account</h2>
                 <form onSubmit={handleSubmit} encType='multipart/form-data' className='space-y-4'>
@@ -148,20 +148,23 @@ export default function SignupPage() {
                     <div>
                         <label className='block mb-1 font-medium'>Sign up as</label>
                         <select
-                            name="role"
+                            name='role'
                             value={formData.role}
                             onChange={handleChange}
                             className='w-full px-3 py-2.5 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
                         >
-                            <option value="player">Player</option>
-                            <option value="facility">Facility Owner</option>
+                            <option value='player'>Player</option>
+                            <option value='facility'>Facility Owner</option>
                         </select>
                     </div>
 
                     <button
                         disabled={isLoading}
                         type='submit'
-                        className={`w-full py-2 px-4 text-white rounded-md transition duration-200 ${isLoading ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700 cursor-pointer'}`}
+                        className={`w-full py-2 px-4 text-white rounded-md transition duration-200 ${isLoading
+                            ? 'bg-gray-300 !cursor-not-allowed'
+                            : 'bg-blue-600 hover:bg-blue-700 cursor-pointer'
+                            }`}
                     >
                         {isLoading ? 'Signing up...' : 'Sign Up'}
                     </button>

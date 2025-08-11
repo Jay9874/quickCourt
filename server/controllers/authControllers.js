@@ -2,7 +2,7 @@ const ImageKit = require('imagekit');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-const otpCache = require("../cache/otpCache")
+const cache = require("../utils/cache")
 const sendMail = require("../utils/mailer");
 
 const imagekit = new ImageKit({
@@ -94,7 +94,7 @@ exports.signup = async (req, res) => {
         await newUser.save();
 
         const otp = Math.floor(100000 + Math.random() * 900000).toString();
-        otpCache.set(email, otp);
+        cache.set(email, otp);
 
         const mailOptions = {
             from: `${process.env.EMAIL_USER} <${process.env.EMAIL_ADDRESS}>`,
@@ -119,7 +119,7 @@ exports.signup = async (req, res) => {
 
 exports.verifyOtp = async (req, res) => {
     const { email, otp } = req.body;
-    const cachedOtp = otpCache.get(email);
+    const cachedOtp = cache.get(email);
 
     if (cachedOtp !== otp) {
         return res.status(400).json({ message: "Invalid OTP" });
@@ -135,7 +135,7 @@ exports.verifyOtp = async (req, res) => {
         return res.status(404).json({ message: "User not found" });
     }
 
-    otpCache.del(email);
+    cache.del(email);
 
     res.status(200).json({ message: "Email verified successfully" });
 };
