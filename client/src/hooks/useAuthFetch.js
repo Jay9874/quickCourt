@@ -1,8 +1,8 @@
 import axios from 'axios'
-import useUserStore from '../store/authStore'
+import useAuthStore from '../store/authStore'
 
 export const useAuthFetch = () => {
-    const { setUser, clearUser, setAuthenticating, setAuthenticated } = useUserStore();
+    const { setUser, clearUser, setAuthenticating, setAuthenticated } = useAuthStore();
 
     const fetchUser = async () => {
         try {

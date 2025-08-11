@@ -1,10 +1,10 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import useUserStore from './store/authStore';
+import useAuthStore from './store/authStore';
 import Loading from './components/Loading';
 import Navbar from './components/Navbar';
 
 export default function ProtectedRoute() {
-    const { isAuthenticated, isAuthenticating } = useUserStore();
+    const { isAuthenticated, isAuthenticating } = useAuthStore();
     const location = useLocation();
 
     if (isAuthenticating) {
