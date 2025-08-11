@@ -43,14 +43,10 @@ export default function LoginPage() {
                 email, password
             }, { withCredentials: true });
 
+            await fetchUser();
             toast.success('Login successful!');
 
-            const fetchedUser = await fetchUser();
-
-            if (fetchedUser?.role === 'player') navigate('/');
-            else if (fetchedUser?.role === 'facility') navigate('/facility');
-            else if (fetchedUser?.role === 'admin') navigate('/admin');
-            else navigate('/');
+            navigate('/');
         }
         catch (error) {
             toast.error(error.response?.data?.message || 'An error occurred');
