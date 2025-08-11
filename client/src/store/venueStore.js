@@ -9,7 +9,7 @@ const useVenueStore = create((set, get) => ({
     try {
       set({ loading: true })
       const res = await axios.get(
-        `${import.meta.env.VITE_SERVER_URL}/api/venue?city=${city}`,
+        `${import.meta.env.VITE_SERVER_URL}/api/venues?city=${city}`,
         {
           withCredentials: true
         }

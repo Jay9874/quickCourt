@@ -1,13 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import VenueCard from '../components/VenueCard'
 import Footer from '../components/Footer'
 import { Link, NavLink, useSearchParams } from 'react-router-dom'
 import { FaChevronRight, FaChevronLeft } from 'react-icons/fa'
+import useVenueStore from '../store/venueStore'
 
 export default function Home () {
   // Mock data - replace with actual API call
   // keeping it to show the default result
-  const [defaultCity, setDefaultCity] = useState('Ahmadabad')
+  const [defaultCity, setDefaultCity] = useState('Ahmedabad')
+
+  const { fetchVenues } = useVenueStore()
 
   const mockVenues = [
     {
@@ -111,6 +114,10 @@ export default function Home () {
     }
   ]
 
+  useEffect(() => {
+    fetchVenues(defaultCity)
+  }, [defaultCity])
+
   return (
     <div>
       <div className='relative flex h-[50vh]'>
@@ -163,6 +170,8 @@ export default function Home () {
                 className='outline-none border-none px-4 py-1 text-lg'
                 type='text'
                 name='city'
+                value={defaultCity}
+                onChange={e => setDefaultCity(e.target.value)}
                 placeholder='Ahmedabad'
               />
             </div>
