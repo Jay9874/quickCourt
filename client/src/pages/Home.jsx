@@ -9,9 +9,9 @@ import citiesData from '../data/citiesData.json'
 export default function Home() {
   // Mock data - replace with actual API call
   // keeping it to show the default result
-  const [defaultCity, setDefaultCity] = useState('Ahmedabad')
+  // const [defaultCity, setDefaultCity] = useState('Ahmedabad')
 
-  const { fetchVenues } = useVenueStore()
+  const { fetchVenues, venues, city, setCity } = useVenueStore()
 
   const mockVenues = [
     {
@@ -116,8 +116,10 @@ export default function Home() {
   ]
 
   useEffect(() => {
-    fetchVenues(defaultCity)
-  }, [defaultCity])
+    fetchVenues(city)
+  }, [city])
+
+  console.log('all the venues are: ', venues)
 
   return (
     <div>
@@ -132,7 +134,7 @@ export default function Home() {
           />
         </div>
         {/* the left container*/}
-        <div className='h-full w-[100%] text-white bg-gradient-to-r from-black to-black/0 absolute top-0 left-0 flex justify-center flex-col p-4'>
+        <div className='h-full container mx-auto px-4 text-white bg-gradient-to-r from-black to-black/0 absolute top-0 left-0 flex justify-center flex-col p-4'>
           <form>
             <div className='flex justify-center items-center p-1 border-2 rounded-md w-fit'>
               <div style={{ height: '24px', width: '24px' }}>
@@ -171,8 +173,8 @@ export default function Home() {
                 list='cities-list'
                 id='city'
                 name='city'
-                value={defaultCity}
-                onChange={e => setDefaultCity(e.target.value)}
+                value={city}
+                onChange={e => setCity(e.target.value)}
                 placeholder='Select Venue City'
                 className='outline-none border-none px-4 py-1 text-lg'
               />
@@ -197,9 +199,11 @@ export default function Home() {
       </div>
 
       {/* the loaded venues */}
-      <div>
+      <div className='container mx-auto p-4'>
         <div className='flex justify-between p-2'>
-          <p>Book Venues</p>
+          <h1 className='text-xl font-bold'>
+            Book Venues in <span className='text-gray-500'>{city}</span>
+          </h1>
           <p>
             <Link className='underline' to={'/venues'}>
               See all Venues {'>'}
@@ -207,18 +211,26 @@ export default function Home() {
           </p>
         </div>
         <div className='flex overflow-scroll gap-24 p-4'>
-          {mockVenues.map(venue => (
-            <VenueCard key={venue.id} venue={venue} />
-          ))}
-        </div>
-        {/* the carousel buttons */}
-        <div className='flex justify-center items-center p-4 gap-8'>
-          <button className='border border-gray-300 p-4 rounded-full'>
-            <FaChevronLeft />
-          </button>
-          <button className='border border-gray-300 p-4 rounded-full'>
-            <FaChevronRight />
-          </button>
+          {venues.length === 0 ? (
+            <div className='w-full p-4 rounded-md border border-gray-400'>
+              No venues found in {city}.
+            </div>
+          ) : (
+            <div className='w-full'>
+              {venues.map(venue => (
+                <VenueCard key={venue._id} venue={venue} />
+              ))}
+              {/* the carousel buttons */}
+              <div className='flex justify-center items-center p-4 gap-8'>
+                <button className='border border-gray-300 p-4 rounded-full'>
+                  <FaChevronLeft />
+                </button>
+                <button className='border border-gray-300 p-4 rounded-full'>
+                  <FaChevronRight />
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

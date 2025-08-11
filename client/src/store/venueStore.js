@@ -3,6 +3,8 @@ import axios from 'axios'
 
 const useVenueStore = create((set, get) => ({
   loading: false,
+  city: 'Ahmedabad',
+  setCity: (city)=>set({city: city}),
   venues: [],
   fetchVenues: async city => {
     try {

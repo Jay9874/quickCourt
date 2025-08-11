@@ -6,7 +6,7 @@ import VenueTag from './VenueTag'
 
 const VenueCard = ({ venue }) => {
   const navigate = useNavigate()
-
+  console.log('the venue is: ', venue)
   const tags = [
     {
       icon: 'hello',
@@ -17,22 +17,19 @@ const VenueCard = ({ venue }) => {
   return (
     <div className='w-48 shrink-0 border border-1 p-2 rounded-md'>
       {/* Image container */}
-      <div>
-        <img
-          src={`https://picsum.photos/seed/${venue.id}/200/150`}
-          alt='venue view'
-        />
+      <div className='w-full'>
+        <img src={venue.images[0]} alt='venue view' />
       </div>
       {/* info container */}
       <div className='flex flex-col gap-2'>
         <div className='flex justify-between'>
-          <p>Venue name</p>
+          <p>{venue.name}</p>
           <span>⭐️</span>
           <span>{'(6)'}</span>
         </div>
-        <div className='flex'>
+        <div className='flex items-center'>
           <CiMapPin color='red' />
-          <span>Location</span>
+          <span>{venue.city}</span>
         </div>
         <div>
           <span>₹</span>
@@ -40,8 +37,8 @@ const VenueCard = ({ venue }) => {
           <span>Per Hour</span>
         </div>
         {/* for tags */}
-        <div>
-          {tags.map((tag, index) => (
+        <div className='flex flex-wrap gap-1'>
+          {venue.sports.map((tag, index) => (
             <VenueTag key={index} tag={tag} />
           ))}
         </div>
