@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { CiMapPin } from 'react-icons/ci'
 import VenueTag from './VenueTag'
 // import StarRating from './StarRating'
 
@@ -23,14 +24,14 @@ const VenueCard = ({ venue }) => {
         />
       </div>
       {/* info container */}
-      <div>
-        <div>
+      <div className='flex flex-col gap-2'>
+        <div className='flex justify-between'>
           <p>Venue name</p>
           <span>⭐️</span>
           <span>{'(6)'}</span>
         </div>
-        <div>
-          <span></span>
+        <div className='flex'>
+          <CiMapPin color='red'/>
           <span>Location</span>
         </div>
         <div>
@@ -45,7 +46,7 @@ const VenueCard = ({ venue }) => {
           ))}
         </div>
         {/* view details button */}
-        <div className='flex justify-center items-center'>
+        <div className='flex justify-center items-center mt-2'>
           <button className='border border-1 border-gray-600 text-green-600 p-2 rounded-md'>
             View Details
           </button>

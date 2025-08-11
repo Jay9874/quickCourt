@@ -1,5 +1,7 @@
 import React from 'react'
 import VenueCard from '../components/VenueCard'
+import Footer from '../components/Footer'
+import { Link, NavLink } from 'react-router-dom'
 
 export default function Home () {
   // Mock data - replace with actual API call
@@ -133,13 +135,23 @@ export default function Home () {
       </div>
 
       {/* the loaded venues */}
-      <div className='flex overflow-scroll gap-24'>
-        {mockVenues.map(venue => (
-          <VenueCard key={venue.id} venue={venue} />
-        ))}
+      <div>
+        <div className='flex justify-between p-2'>
+          <p>Book Venues</p>
+          <p>
+            <Link className="underline" to={'/venue'}>See all Venues {'>'}</Link>
+          </p>
+        </div>
+        <div className='flex overflow-scroll gap-24 p-4'>
+          {mockVenues.map(venue => (
+            <VenueCard key={venue.id} venue={venue} />
+          ))}
+        </div>
       </div>
 
-      {/* The footer page */}
+      <div className='mt-4'>
+        <Footer />
+      </div>
     </div>
   )
 }
