@@ -8,7 +8,9 @@ import SignupPage from './pages/Auth/Signup';
 import VerificationPage from './pages/Auth/Verify';
 import ForgotPasswordPage from './pages/Auth/Forgot';
 import Venues from './pages/Venues';
+
 import VenueDetail from './pages/VenueDetail';
+import ProfilePage from './pages/common/Profile-Page';
 
 function App() {
   const { fetchUser } = useAuthFetch();
@@ -30,6 +32,7 @@ function App() {
           <Route path='/forgot' element={<ForgotPasswordPage />} />
           <Route path='/venues' element={<Venues/>}/>
           <Route path='/venues/:id' element={<VenueDetail />} />
+          <Route path='/profile' element={<ProfilePage />} />
           
         </Route>
         <Route path='*' element={<>Not Found</>} />
