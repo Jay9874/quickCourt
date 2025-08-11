@@ -1,7 +1,11 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { toast } from 'sonner';
 
 export default function AddVenue() {
+    const navigate = useNavigate();
+
     const [images, setImages] = useState([]);
     const [formData, setFormData] = useState({
         name: '',
@@ -52,8 +56,7 @@ export default function AddVenue() {
             const lowerValue = value.toLowerCase();
 
             if (formData[type].some(item => item.toLowerCase() === lowerValue)) {
-                toast.error(`${type === 'sports' ? 'Sport' : 'Amenity'} already added`);
-                return;
+                return toast.error(`${type === 'sports' ? 'Sport' : 'Amenity'} already added`);
             }
 
             setFormData(prev => ({
@@ -61,7 +64,8 @@ export default function AddVenue() {
                 [type]: [...prev[type], value]
             }));
 
-            type === 'sports' ? setSportsInput('') : setAmenitiesInput('');
+            if (type === 'sports') setSportsInput('');
+            else setAmenitiesInput('');
         }
         else if (e.key === 'Backspace' && !e.target.value) {
             setFormData(prev => ({
@@ -78,16 +82,43 @@ export default function AddVenue() {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+
         if (!formData.name.trim() || !formData.location.trim() || !formData.description.trim()) {
             return toast.error('Please fill all required fields');
         }
-        if (!images.length) {
+        if (images.length === 0) {
             return toast.error('Please upload at least one image');
         }
 
-        toast.success('Venue added successfully!');
+        try {
+            const data = new FormData();
+
+            data.append('name', formData.name);
+            data.append('location', formData.location);
+            data.append('description', formData.description);
+            formData.sports.forEach(sport => data.append('sports', sport));
+            formData.amenities.forEach(amenity => data.append('amenities', amenity));
+            images.forEach(({ file }) => data.append('images', file));
+
+            await axios.post(
+                `${import.meta.env.VITE_SERVER_URL}/api/facility/add-venue`,
+                data,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    },
+                    withCredentials: true
+                }
+            );
+
+            toast.success('Venue added successfully!');
+            navigate('/facility');
+        }
+        catch (error) {
+            toast.error(error.response?.data?.message || 'Failed to add venue');
+        }
     };
 
     return (
@@ -170,12 +201,12 @@ export default function AddVenue() {
                             ))}
                         </div>
                         <input
-                            type='text'
+                            type="text"
                             value={sportsInput}
                             onChange={(e) => setSportsInput(e.target.value)}
                             onKeyDown={(e) => handleTagInput(e, 'sports')}
-                            placeholder='Type and press Enter'
-                            className='w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
+                            placeholder="Type and press Enter"
+                            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
 
@@ -190,12 +221,12 @@ export default function AddVenue() {
                             ))}
                         </div>
                         <input
-                            type='text'
+                            type="text"
                             value={amenitiesInput}
                             onChange={(e) => setAmenitiesInput(e.target.value)}
                             onKeyDown={(e) => handleTagInput(e, 'amenities')}
-                            placeholder='Type and press Enter'
-                            className='w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
+                            placeholder="Type and press Enter"
+                            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
 

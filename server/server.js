@@ -5,6 +5,8 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 
 const verifyUser = require('./middlewares/verifyUser')
+const verifyFacility = require('./middlewares/verifyFacility')
+
 const app = express()
 
 app.use(cookieParser())
@@ -19,8 +21,7 @@ app.use(
 app.use(express.json())
 
 app.use('/api/auth', require('./routes/authRoutes'))
-
-// The venues route
+app.use('/api/facility', verifyFacility, require('./routes/facilityRoutes'))
 app.use('/api/venues', verifyUser, require('./routes/venueRoutes'))
 
 mongoose
