@@ -5,7 +5,6 @@ import VenueTag from './VenueTag'
 // import StarRating from './StarRating'
 
 const VenueCard = ({ venue }) => {
-  console.log('the venue is: ', venue)
   const tags = [
     {
       icon: 'hello',

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { FaChevronRight, FaChevronLeft } from 'react-icons/fa'
 import useVenueStore from '../store/venueStore'
@@ -6,81 +6,8 @@ import VenueCard from '../components/VenueCard'
 import Footer from '../components/Footer'
 import citiesData from '../data/citiesData.json'
 
-export default function Home() {
-  // Mock data - replace with actual API call
-  // keeping it to show the default result
-  // const [defaultCity, setDefaultCity] = useState('Ahmedabad')
-
-  const { fetchVenues, venues, city, setCity } = useVenueStore()
-
-  const mockVenues = [
-    {
-      id: 1,
-      name: 'Central Sports Complex',
-      sports: ['Basketball', 'Volleyball', 'Badminton'],
-      pricePerHour: 1500,
-      location: 'Bandra West, Mumbai',
-      rating: 4.5,
-      venueType: 'Indoor',
-      image:
-        'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop'
-    },
-    {
-      id: 2,
-      name: 'Riverside Tennis Club',
-      sports: ['Tennis'],
-      pricePerHour: 2000,
-      location: 'Powai, Mumbai',
-      rating: 4.8,
-      venueType: 'Outdoor',
-      image:
-        'https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=400&h=300&fit=crop'
-    },
-    {
-      id: 3,
-      name: 'Elite Soccer Field',
-      sports: ['Soccer', 'Football'],
-      pricePerHour: 2500,
-      location: 'Andheri East, Mumbai',
-      rating: 4.2,
-      venueType: 'Outdoor',
-      image:
-        'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop'
-    },
-    {
-      id: 4,
-      name: 'Metro Basketball Arena',
-      sports: ['Basketball'],
-      pricePerHour: 1800,
-      location: 'Kurla West, Mumbai',
-      rating: 4.6,
-      venueType: 'Indoor',
-      image:
-        'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop'
-    },
-    {
-      id: 5,
-      name: 'Metro Basketball Arena',
-      sports: ['Basketball'],
-      pricePerHour: 1800,
-      location: 'Kurla West, Mumbai',
-      rating: 4.6,
-      venueType: 'Indoor',
-      image:
-        'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop'
-    },
-    {
-      id: 6,
-      name: 'Metro Basketball Arena',
-      sports: ['Basketball'],
-      pricePerHour: 1800,
-      location: 'Kurla West, Mumbai',
-      rating: 4.6,
-      venueType: 'Indoor',
-      image:
-        'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop'
-    }
-  ]
+export default function Home () {
+  const { fetchVenuesWithCity, venues, city, setCity } = useVenueStore()
 
   const popularSports = [
     {
@@ -116,7 +43,7 @@ export default function Home() {
   ]
 
   useEffect(() => {
-    fetchVenues(city)
+    fetchVenuesWithCity(city)
   }, [city])
 
   console.log('all the venues are: ', venues)

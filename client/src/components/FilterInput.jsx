@@ -1,25 +1,22 @@
 import React from 'react'
 
-const FilterInput = ({ 
-  label, 
-  type = "text", 
-  value, 
-  onChange, 
-  placeholder, 
+const FilterInput = ({
+  label,
+  name,
+  type = 'text',
+  value,
+  onChange,
+  placeholder,
   options = [],
-  className = "" 
+  className = ''
 }) => {
-  if (type === "select") {
+  if (type === 'select') {
     return (
       <div className={`space-y-2 ${className}`}>
-        <label className="block text-sm font-semibold text-secondary-700">
+        <label className='block text-sm font-semibold text-secondary-700'>
           {label}
         </label>
-        <select
-          value={value}
-          onChange={onChange}
-          className="select-field"
-        >
+        <select name={name} value={value} onChange={onChange} className=''>
           {options.map((option, index) => (
             <option key={index} value={option.value}>
               {option.label}
@@ -32,7 +29,7 @@ const FilterInput = ({
 
   return (
     <div className={`space-y-2 ${className}`}>
-      <label className="block text-sm font-semibold text-secondary-700">
+      <label className='block text-sm font-semibold text-secondary-700'>
         {label}
       </label>
       <input
@@ -40,7 +37,8 @@ const FilterInput = ({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        className="input-field"
+        name={name}
+        className='border border-gray-400 px-2 py-1 rounded-md outline-none'
       />
     </div>
   )
