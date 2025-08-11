@@ -112,7 +112,7 @@ export default function Home () {
       </div>
 
       {/* the loaded venues */}
-      <div className=''>
+      <div className='flex overflow-scroll'>
         {mockVenues.map(venue => (
           <VenueCard key={venue.id} venue={venue} />
         ))}
