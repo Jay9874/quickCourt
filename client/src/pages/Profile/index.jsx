@@ -1,10 +1,12 @@
 
 import "./style.css";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import useAuthStore from "../../store/authStore";
 import axios from "axios";
 
 const ProfilePage = () => {
+  const navigate = useNavigate();
   const user = useAuthStore((state) => state.user);
   const setUser = useAuthStore((state) => state.setUser);
   const [showOldPassword, setShowOldPassword] = useState(false);
@@ -85,7 +87,12 @@ const ProfilePage = () => {
           <button className="edit-profile-btn" disabled>
             Edit Profile
           </button>
-          <button className="all-bookings-btn">All Bookings</button>
+          <button 
+            className="all-bookings-btn"
+            onClick={() => navigate('/profile/bookings')}
+          >
+            All Bookings
+          </button>
         </section>
 
         {/* Right Column */}

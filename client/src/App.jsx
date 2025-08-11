@@ -13,6 +13,8 @@ import ForgotPasswordPage from './pages/Auth/Forgot';
 import ResetPasswordPage from './pages/Auth/Reset';
 import Venues from './pages/Venues';
 import VenueDetail from './pages/VenueDetail';
+import CourtBooking from './pages/CourtBooking';
+import MyBookings from './pages/MyBookings';
 import ProfilePage from './pages/Profile';
 import PlayerTestPage from './pages/Player/PlayerTest';
 import FacilityDashboard from './pages/Facility/Dashboard';
@@ -33,8 +35,9 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/venues' element={<Venues />} />
           <Route path='/venues/:id' element={<VenueDetail />} />
+          <Route path='/booking/:venueId' element={<CourtBooking />} />
           <Route path='/profile' element={<ProfilePage />} >
-            <Route path='bookings' element={<ProfilePage />} />
+            <Route path='bookings' element={<MyBookings />} />
 
           </Route>
           <Route path='/login' element={<LoginPage />} />
