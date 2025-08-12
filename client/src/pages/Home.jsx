@@ -13,32 +13,32 @@ export default function Home() {
     {
       id: 1,
       name: 'Badminton',
-      imageUrl: 'https://picsum.photos/seed/1/200/150'
+      imageUrl: '/badmintion_img.jpg'
     },
     {
       id: 2,
       name: 'Football',
-      imageUrl: 'https://picsum.photos/seed/2/200/150'
+      imageUrl: '/football_img.jpg'
     },
     {
       id: 3,
       name: 'Cricket',
-      imageUrl: 'https://picsum.photos/seed/3/200/150'
+      imageUrl: '/cricket_img.jpg'
     },
     {
       id: 4,
       name: 'Swimming',
-      imageUrl: 'https://picsum.photos/seed/4/200/150'
+      imageUrl: '/swimming_img.jpg'
     },
     {
       id: 5,
       name: 'Tennis',
-      imageUrl: 'https://picsum.photos/seed/5/200/150'
+      imageUrl: '/tennis_img.jpg'
     },
     {
       id: 6,
       name: 'Table Tennis',
-      imageUrl: 'https://picsum.photos/seed/6/200/150'
+      imageUrl: '/table_tennis.jpg'
     }
   ]
 
