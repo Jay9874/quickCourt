@@ -222,7 +222,7 @@ export default function Court() {
                                     .map(({ court, index }) => (
                                         <li
                                             key={index}
-                                            className='border p-4 rounded mb-3 flex justify-between items-start'
+                                            className='bg-gray-50 border border-gray-300 p-4 mb-3 flex justify-between items-start rounded-lg'
                                         >
                                             <div>
                                                 <p><strong>Name:</strong> {court.name}</p>

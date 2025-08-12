@@ -140,7 +140,15 @@ const VenueDetail = () => {
                     Satellite, Jodhpur Village, Ahmedabad, Gujarat - 380051
                   </p>
                 </div>
-                <div className='h-32 p-4'>Gmap</div>
+                <div className='h-32'>
+                  <iframe
+                    className='mt-4 size-full rounded-[10px]'
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    src={`https://www.google.com/maps/embed/v1/place?q=${venue.city}&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8`}
+                  ></iframe>
+                </div>
               </div>
             </div>
           </div>

@@ -34,7 +34,7 @@ export default function AllVenues() {
                                 {venues.map(venue => (
                                     <div
                                         key={venue._id}
-                                        className='p-4 flex items-center justify-between border-2 border-gray-400 rounded-lg'
+                                        className='p-4 flex items-center justify-between bg-gray-50 border-2 border-gray-200 rounded-lg'
                                     >
                                         <p className='text-lg font-semibold'>{venue.name}</p>
                                         <div className='flex items-center gap-2'>

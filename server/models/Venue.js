@@ -25,6 +25,10 @@ const venueSchema = new mongoose.Schema({
         type: [String],
         default: []
     },
+    openingHours: [{
+        weekday: { type: String },
+        time: { type: Date }
+    }],
     images: {
         type: [String],
         required: true
