@@ -1,13 +1,27 @@
+import { useEffect } from 'react'
 import useAuthStore from '../../store/authStore'
 import { NavLink, Outlet } from 'react-router-dom'
+import useBookingStore from '../../store/bookingStore'
 
 const ProfilePage = () => {
   const user = useAuthStore(state => state.user)
+  const { fetchBookings, loading } = useBookingStore()
 
+  useEffect(() => {
+    fetchBookings()
+  }, [])
   return (
     <main className='container p-4 mx-auto max-w-4xl flex flex-col md:flex-row gap-8'>
       <section className='md:w-1/3 border border-gray-400 rounded-md p-6 shadow-lg flex flex-col items-center text-center'>
-        <div className='w-24 h-24 bg-gray-600 mb-4'></div>
+        {/* <div className='w-24 h-24 bg-gray-600 mb-4'></div> */}
+        <div>
+          <img
+            src={user.avatar || '/user.png'}
+            alt=''
+            className='size-24 object-cover'
+          />
+        </div>
+
         <div className='mb-6'>
           <div className='text-xl font-bold mb-1'>{user?.name || '-'}</div>
           <div className='text-sm text-gray-400'>{user?.phone || '-'}</div>
@@ -42,8 +56,7 @@ const ProfilePage = () => {
         </NavLink>
       </section>
       {/* The router outlet */}
-
-      <Outlet />
+      {loading ? <div>Waiting for the bookings</div> : <Outlet />}
     </main>
   )
 }

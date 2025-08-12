@@ -115,3 +115,24 @@ exports.fetchVenuesByCity = async (req, res) => {
     return res.status(500).json({ error: 'something went wrong' })
   }
 }
+// Get a venue by its id
+exports.fetchVenuesById = async (req, res) => {
+  try {
+    const { venueId } = req.params
+    const venues = await Venue.findById(venueId)
+
+    if (!venues || venues.length === 0) {
+      return res.status(404).json({
+        error: `Venue could not be found with the id`
+      })
+    }
+
+    console.log('the venue is: ', venues)
+    return res.status(200).json(venues)
+  } catch (err) {
+    console.log('Err while fetching a venue by its id: ', err)
+    return res.status(500).json({
+      error: 'something went wrong.'
+    })
+  }
+}

@@ -21,10 +21,9 @@ app.use(
 
 app.use(express.json())
 
-
 app.use('/api/auth', require('./routes/authRoutes'))
 app.use('/api/venues', verifyUser, require('./routes/venueRoutes'))
-app.use('/api/bookings', require('./routes/bookingRoutes'));
+app.use('/api/bookings', verifyUser, require('./routes/bookingRoutes'))
 app.use('/api/facility', verifyFacility, require('./routes/facilityRoutes'))
 app.use('/api/admin', verifyAdmin, require('./routes/adminRoutes'))
 

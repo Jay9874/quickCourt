@@ -1,41 +1,9 @@
 import React, { useState } from 'react'
+import useBookingStore from '../store/bookingStore'
 
 export default function ProfileBooking () {
-  const [activeTab, setActiveTab] = useState('all')
-  const bookings = [
-    {
-      _id: '1',
-      venueName: 'SBR Badminton',
-      sport: 'Badminton',
-      date: '2025-05-06',
-      startTime: '01:00 PM',
-      endTime: '02:00 PM',
-      location: 'Satellite, Jodhpur Village',
-      status: 'Confirmed',
-      canCancel: true
-    },
-    {
-      _id: '2',
-      venueName: 'Khel Gaon',
-      sport: 'Tennis',
-      date: '2025-05-07',
-      startTime: '05:00 PM',
-      endTime: '06:00 PM',
-      location: 'Navrangpura, Ahmedabad',
-      status: 'Confirmed',
-      canCancel: false
-    },
-    {
-      _id: '3',
-      venueName: 'SGVP Cricket Ground',
-      sport: 'Cricket',
-      date: '2025-05-05',
-      startTime: '10:00 AM',
-      endTime: '12:00 PM',
-      location: 'SGVP Road, Ahmedabad',
-      status: 'Cancelled'
-    }
-  ]
+  const [activeTab, setActiveTab] = useState('Confirmed')
+  const { bookings } = useBookingStore()
 
   // Placeholder functions for event handlers
   const handleCancelBooking = id => {
@@ -46,14 +14,13 @@ export default function ProfileBooking () {
     console.log('Write a review for booking with ID:', id)
   }
 
-
   return (
     <div className='min-h-screen flex-1 rounded-md border border-gray-400 p-8 shadow-lg'>
       <div className='inline-flex border border-gray-400 rounded-full p-1'>
         <button
-          onClick={() => setActiveTab('all')}
+          onClick={() => setActiveTab('Confirmed')}
           className={`px-4 py-2 rounded-full transition duration-300 ${
-            activeTab === 'all'
+            activeTab === 'Confirmed'
               ? 'bg-green-950 text-white font-semibold'
               : ''
           }`}
@@ -61,9 +28,9 @@ export default function ProfileBooking () {
           All Bookings
         </button>
         <button
-          onClick={() => setActiveTab('cancelled')}
+          onClick={() => setActiveTab('Cancelled')}
           className={`px-4 py-2 rounded-full transition duration-300 ${
-            activeTab === 'cancelled'
+            activeTab === 'Cancelled'
               ? 'bg-green-950 text-white font-semibold'
               : ''
           }`}
@@ -75,14 +42,14 @@ export default function ProfileBooking () {
       {/* Container for Confirmed and other non-cancelled bookings */}
       <div className='mt-4 mb-8'>
         {bookings
-          .filter(b => b.status !== 'Cancelled')
+          .filter(b => b.status === activeTab)
           .map(booking => (
             <div
               key={booking._id}
               className='rounded-xl p-5 mb-4 border border-[#444] shadow-lg'
             >
               <div className='font-semibold text-lg mb-1'>
-                {booking.venueName} ({booking.sport})
+                {booking.venue.name}
               </div>
               <div className='flex gap-5 text-sm mb-0.5'>
                 <span>
@@ -93,16 +60,22 @@ export default function ProfileBooking () {
                 </span>
                 <span>
                   <span role='img' aria-label='time'>
-                    ⏰
+                    Starting at:
                   </span>{' '}
-                  {booking.startTime} - {booking.endTime}
+                  {booking.startTime}
+                </span>
+                <span>
+                  <span role='img' aria-label='time'>
+                    Duration:
+                  </span>{' '}
+                  {booking.duration}
                 </span>
               </div>
               <div className='text-sm mb-0.5'>
                 <span role='img' aria-label='location'>
                   📍
                 </span>{' '}
-                {booking.location}
+                {booking.address}
               </div>
               <div className='text-sm mb-0.5'>
                 Status:{' '}
@@ -136,7 +109,7 @@ export default function ProfileBooking () {
       </div>
 
       {/* Container for Cancelled bookings */}
-      <div>
+      {/* <div>
         <h3 className='text-2xl font-bold mb-4'>Cancelled Bookings</h3>
         {bookings
           .filter(b => b.status === 'Cancelled')
@@ -179,7 +152,7 @@ export default function ProfileBooking () {
               </div>
             </div>
           ))}
-      </div>
+      </div> */}
     </div>
   )
 }
