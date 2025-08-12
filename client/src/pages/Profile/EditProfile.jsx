@@ -9,7 +9,6 @@ export default function EditProfile () {
   const [showNewPassword, setShowNewPassword] = useState(false)
   const [name, setName] = useState(user?.name || '')
   const [email, setEmail] = useState(user?.email || '')
-  const [phone, setPhone] = useState(user?.phone || '')
   const [oldPassword, setOldPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [loading, setLoading] = useState(false)
@@ -27,7 +26,6 @@ export default function EditProfile () {
         {
           name,
           email,
-          phone,
           oldPassword: oldPassword || undefined,
           newPassword: newPassword || undefined
         },
@@ -63,7 +61,12 @@ export default function EditProfile () {
         onSubmit={handleSubmit}
         onReset={handleReset}
       >
-        <div className='w-20 h-20 bg-gray-600 rounded-full mx-auto mb-2'></div>
+
+        <img
+          src={user.avatar || '/user.png'}
+          alt=''
+          className='size-20 object-cover mx-auto mb-2'
+        />
 
         <label className='text-sm font-medium'>Full Name</label>
         <input
@@ -85,7 +88,7 @@ export default function EditProfile () {
           className='p-3 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition-all'
         />
 
-        <label className='text-sm font-medium'>Phone</label>
+        {/* <label className='text-sm font-medium'>Phone</label>
         <input
           type='tel'
           placeholder='Phone'
@@ -93,7 +96,7 @@ export default function EditProfile () {
           onChange={e => setPhone(e.target.value)}
           required
           className='p-3 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition-all'
-        />
+        /> */}
 
         <label className='text-sm font-medium'>Old Password</label>
         <div className='relative'>
@@ -101,6 +104,7 @@ export default function EditProfile () {
             type={showOldPassword ? 'text' : 'password'}
             placeholder='Old Password'
             value={oldPassword}
+            required
             onChange={e => setOldPassword(e.target.value)}
             className='w-full p-3 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition-all pr-10'
           />
@@ -118,6 +122,7 @@ export default function EditProfile () {
             type={showNewPassword ? 'text' : 'password'}
             placeholder='New Password'
             value={newPassword}
+            required
             onChange={e => setNewPassword(e.target.value)}
             className='w-full p-3 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition-all pr-10'
           />

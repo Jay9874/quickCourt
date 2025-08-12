@@ -55,7 +55,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
           disabled={page === '...'}
           className={`px-4 py-2 border-2 rounded-lg transition-all duration-200 ${
             page === currentPage
-              ? 'bg-primary-600 text-white border-primary-600'
+              ? 'bg-primary-600 bg-blue-300 border-primary-600'
               : page === '...'
               ? 'border-transparent bg-transparent text-secondary-500'
               : 'border-secondary-200 bg-white text-secondary-700 hover:border-primary-500 hover:text-primary-500'

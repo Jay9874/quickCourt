@@ -5,11 +5,9 @@ exports.fetchVenuesByParams = async (req, res) => {
     searchTerm = '',
     selectedSport,
     selectedPrice,
-    selectedVenueType,
-    selectedRating,
     city,
     page = 1,
-    venuesPerPage = 6,
+    venuesPerPage = 1,
   } = req.query;
 
   if (!req.query) {

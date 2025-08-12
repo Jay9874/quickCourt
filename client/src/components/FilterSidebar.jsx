@@ -1,4 +1,5 @@
 import FilterInput from './FilterInput'
+import './filter.css'
 
 const sportOptions = [
   { value: '', label: 'All Sports' },
@@ -9,7 +10,7 @@ const sportOptions = [
   { value: 'Badminton', label: 'Badminton' },
   { value: 'Swimming', label: 'Swimming' },
   { value: 'Cricket', label: 'Cricket' },
-  { value: 'Football', label: 'Football' },
+  { value: 'Football', label: 'Football' }
 ]
 
 const priceOptions = [
@@ -32,14 +33,23 @@ const ratingOptions = [
   { value: '2', label: '2+ Stars' }
 ]
 
-export const FilterSidebar = ({ filters, setFilters, clearFilters }) => {
-  function onFilterChange(e) {
+export const FilterSidebar = ({
+  filters,
+  setFilters,
+  clearFilters,
+  showFilters
+}) => {
+  function onFilterChange (e) {
     const { name, value } = e.target
     setFilters(prev => ({ ...prev, [name]: value }))
   }
 
   return (
-    <div className='flex-shrink-0 bg-secondary-50 p-2 rounded-xl shadow-soft h-fit sticky top-24'>
+    <div
+      className={`filters-container ${
+        showFilters ? 'active' : 'inactive'
+      } flex-shrink-0 bg-white shadow-md p-6 rounded-xl shadow-soft h-fit sticky top-24`}
+    >
       <h3 className='text-xl font-bold text-secondary-800 mb-6 pb-4 border-b-2 border-secondary-200'>
         Filters
       </h3>

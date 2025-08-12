@@ -6,7 +6,7 @@ import VenueTag from './VenueTag'
 
 const VenueCard = ({ venue }) => {
   return (
-    <div className='w-48 shrink-0 bg-gray-50 border border-gray-200 p-2 rounded-md'>
+    <div className='w-48 mx-auto shrink-0 bg-gray-50 border border-gray-200 p-2 rounded-md'>
       {/* Image container */}
       <div className='w-full'>
         <img src={venue.images[0]} alt='venue view' className='rounded' />

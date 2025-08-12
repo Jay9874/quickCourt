@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import axios from 'axios'
+import { toast } from 'sonner'
 
 const useVenueStore = create((set, get) => ({
   loading: false,
@@ -19,12 +20,12 @@ const useVenueStore = create((set, get) => ({
       )
       const { venues, totalPages } = res.data
       set({ venues: venues, totalPages: totalPages })
+      toast.success('Successfully loaded all the venues')
       return { venues, totalPages }
-    }
-    catch (err) {
+    } catch (err) {
       set({ venues: [], totalPages: 0 })
-    }
-    finally {
+      toast.error('Could not all the venues')
+    } finally {
       set({ loading: false })
     }
   },
@@ -46,13 +47,18 @@ const useVenueStore = create((set, get) => ({
         }
       )
       const { venues, totalPages } = res.data
+      console.log('the data is: ', venues)
       set({ venues: venues, totalPages: totalPages })
+      if (venues.length > 0) {
+        toast.success('Successfully loaded all the venues.')
+      } else {
+        toast.info('No venues matched your query.')
+      }
       return { venues, totalPages }
-    }
-    catch (err) {
+    } catch (err) {
       set({ venues: [], totalPages: 0 })
-    }
-    finally {
+      toast.error('Could not find venues with these parameters')
+    } finally {
       set({ loading: false })
     }
   }

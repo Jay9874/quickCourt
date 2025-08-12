@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import axios from 'axios'
+import { toast } from 'sonner'
 
 const useBookingStore = create((set, get) => ({
   bookings: [],
@@ -13,8 +14,10 @@ const useBookingStore = create((set, get) => ({
       )
       console.log('the res: ', res.data)
       set({ bookings: res.data })
+      toast.success('Successfully loaded all the bookings.')
     } catch (err) {
       console.log('err at checking bookings')
+      toast.error('Could not find any booking')
       return null
     } finally {
       set({ loading: false })
