@@ -23,6 +23,7 @@ import AllVenues from './pages/Facility/AllVenues'
 import AddVenue from './pages/Facility/AddVenue'
 import Court from './pages/Facility/Court'
 import AdminDashboard from './pages/Admin/Dashboard'
+import Users from './pages/Admin/User'
 
 function App() {
   const { fetchUser } = useAuthFetch()
@@ -68,6 +69,7 @@ function App() {
         <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
           <Route path='/admin' element={<Layout Sidebar={AdminSidebar} />}>
             <Route index element={<AdminDashboard />} />
+            <Route path='all-users' element={<Users />} />
           </Route>
         </Route>
 

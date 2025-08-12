@@ -12,6 +12,20 @@ const AdminSidebar = ({ onLinkClick }) => {
       >
         Dashboard
       </Link>
+      <NavLink
+        to='all-users'
+        onClick={onLinkClick}
+        className={({ isActive }) =>
+          [
+            isActive
+              ? 'text-white bg-gray-600 hover:bg-gray-700'
+              : 'bg-white hover:bg-gray-200',
+            'w-full block rounded-3xl py-1 px-4'
+          ].join(' ')
+        }
+      >
+        All Users
+      </NavLink>
     </div>
   )
 }
